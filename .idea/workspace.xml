@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9584ab1-255e-44f8-9f47-21919692d621" name="Changes" comment="" />
+    <list default="true" id="747fa4d0-6a1a-4476-a281-ef497e62ada4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/class/connection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/class/user.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/class/userconnect.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,7 +25,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2HZj1J1GPAYEs1Po4Q6DP2oaQvn" />
+  <component name="ProjectId" id="2HZp1UQDkPUL7Yj9tQZiN04VxQC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,19 +36,20 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Thomas/Documents/DevWeb/Projets/Back-end",
+    "last_opened_file_path": "C:/laragon/www/delimovie",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c9584ab1-255e-44f8-9f47-21919692d621" name="Changes" comment="" />
-      <created>1668499282497</created>
+      <changelist id="747fa4d0-6a1a-4476-a281-ef497e62ada4" name="Changes" comment="" />
+      <created>1668502244727</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1668499282497</updated>
-      <workItem from="1668499286989" duration="1032000" />
+      <updated>1668502244727</updated>
+      <workItem from="1668502247814" duration="155000" />
+      <workItem from="1668503349122" duration="3276000" />
     </task>
     <servers />
   </component>
