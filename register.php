@@ -35,7 +35,7 @@ if ($_POST) {
         $_POST['pseudo'],
         $_POST['email'],
         $_POST['password']
-            );
+    );
 
     if ($user->verify()) {
         // save to database
