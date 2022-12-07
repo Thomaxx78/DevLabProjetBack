@@ -1,34 +1,13 @@
 <script setup>
-
+  import Nav from './components/Nav.vue'
 </script>
-<script>
-  import axios from 'axios';
 
-function popularMovies() {
-    axios.get('https://api.themoviedb.org/3/trending/all/week?api_key=e5be04ec7de9aff432b14905a60c0bb8')
-        .then((response) => {
-            console.log(response.data.results);
 
-            let movies = response.data.results;
-            // let output = '';
-          movies.forEach(movie => {
-            console.log(movie)
-            let parent = document.querySelector('.divParent');
-            let film = document.createElement('div');
-            film.innerHTML = `
-                        <div>
-                            <a href="#" onclick="movieSelected('${movie.id}')">${movie.title}</a>
-                            <button type="submit" class="button" onclick="movieSelected('${movie.id}')">Movie Details</button>
-                        </div>`
-          parent.appendChild(film);
-          })
-})}
-
-popularMovies();
-
-    
-</script>
 
 <template>
-  <div class="divParent"></div>
+  <Nav/>
 </template>
+
+<script>
+
+</script>
