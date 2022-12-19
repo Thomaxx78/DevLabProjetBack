@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+    <title>Vite App</title>
+</head>
+<body>
+    <main>
+        <h2 class="text-blue-700 m-auto">Films tendances</h2>
+        <div class="divParent flex flex-col"></div>
+        <select name="inputGetCategory" id="inputGetCategory" require>
+        </select>
+        <button id="finderButton">Rechercher</button>
+    </main>
+    <script type="module" src="js/main.js"></script>
+</body>
 </html>
 
 

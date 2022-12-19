@@ -1,8 +1,4 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
-
-createApp(App).mount('#app')
+import '../style.css'
 
 import axios from 'axios';
 
@@ -14,17 +10,20 @@ function popularMovies() {
             movies.forEach(movie => {
             let parent = document.querySelector('.divParent');
             let film = document.createElement('div');
-            film.innerHTML = `
-                <div>
-                    <a href="#" onclick="movieSelected('${movie.id}')">${movie.title}</a>
-                    <button type="submit" class="button" onclick="movieSelected('${movie.id}')">Movie Details</button>
-                </div>`
+            film.innerHTML = 
+                    // <img class="w-32" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
+                    `
+                    <span>${movie.title}</span>
+                    <button class="detailsMovie" value="${movie.id}">Movie Details</button>
+                    `
             parent.appendChild(film);
+            film.children[1].addEventListener('click', event => {
+                window.location ="detail.php?id="+movie.id;
+            })
         })
 })}
 
 popularMovies();
-
 
 let finderbouton = document.getElementById("finderButton")
 let inputGetCategory = document.getElementById("inputGetCategory")
@@ -33,7 +32,6 @@ let inputGetCategory = document.getElementById("inputGetCategory")
 axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
 .then((response) => {
     let genres = response.data.genres;
-    console.log(genres);
     genres.forEach(genre => {
         let option = document.createElement('option');
         option.innerHTML = genre.name;
@@ -70,5 +68,3 @@ function moviesByCategory(genreId) {
                 }
         })
 })}
-
-
