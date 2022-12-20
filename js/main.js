@@ -7,22 +7,10 @@ function popularMovies() {
     axios.get('https://api.themoviedb.org/3/trending/all/week?api_key=e5be04ec7de9aff432b14905a60c0bb8')
         .then((response) => {
             let movies = response.data.results;
-            console.log(movies)
             movies.forEach(movie => {
             let parent = document.querySelector('.divParent');
             let film = document.createElement('div');
-            film.innerHTML = 
-                    `
-                    <img class="w-32" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
-                    <span>${movie.title}</span>
-                    <button class="detailsMovie text-white" value="${movie.id}">Movie Details</button>
-                    `
-            parent.appendChild(film);
-            film.classList.add("flex", "flex-col", "items-center", "rounded", "shadow", "m-2", "p-2", "w-64", "bg-white", "text-black", "hover:bg-gray-200", "hover:text-gray-800", "transition", "duration-500", "ease-in-out", "transform", "hover:-translate-y-1", "hover:scale-110");
-            console.log(film.children.length-1)
-            film.children[film.children.length-1].addEventListener('click', event => {
-                window.location ="detail.php?id="+movie.id;
-            })
+            showMovie(parent, film, movie)
         })
 })}
 
@@ -48,10 +36,8 @@ finderbouton.addEventListener("click", function(){
     axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
         .then((response) => {
             let genres = response.data.genres;
-            // console.log(genres);
             genres.forEach(genre => {
                 if (genre.name == inputGetCategory.value) {
-                    // console.log(genre.id);
                     moviesByCategory(genre.id)
                 } else{
                     console.log("Genre not found");
@@ -71,19 +57,104 @@ function moviesByCategory(genreId) {
                 let parent = document.querySelector('.divParent');
                 let film = document.createElement('div');
                 if(movie.genre_ids.includes(genreId)){
-                    film.innerHTML = 
-                            `
-                            <img class="w-32" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
-                            <span>${movie.title}</span>
-                            <button class="detailsMovie text-white" value="${movie.id}">Movie Details</button>
-                            `
-                    parent.appendChild(film);
-                    film.classList.add("flex", "flex-col", "items-center", "rounded", "shadow", "m-2", "p-2", "w-64", "bg-white", "text-black", "hover:bg-gray-200", "hover:text-gray-800", "transition", "duration-500", "ease-in-out", "transform", "hover:-translate-y-1", "hover:scale-110");
-                    film.children[film.children.length-1].addEventListener('click', event => {
-                        window.location ="detail.php?id="+movie.id;
-                    })
+                    showMovie(parent, film, movie)
                 }
         })
     })
 }}
 
+// Afficher les films dans la page 
+function showMovie(parent, film, movie){
+    // Certain films n'ont pas d'attribut title, on utilise alors l'attribut name
+    let title = "";
+    if(movie.title == null){
+        title = movie.name
+    } else {
+        title = movie.title
+    }
+    film.innerHTML = 
+    `
+    <img class="w-32" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
+    <span class="text-center">${title}</span>
+    <button class="detailsMovie text-white" value="${movie.id}">Movie Details</button>
+    `
+    parent.appendChild(film);
+    film.classList.add("flex", "flex-col", "items-center", "rounded", "shadow", "m-2", "p-2", "w-64", "bg-white", "text-black", "hover:bg-gray-200", "hover:text-gray-800", "transition", "duration-500", "ease-in-out", "transform", "hover:-translate-y-1", "hover:scale-110");
+    film.children[film.children.length-1].addEventListener('click', event => {
+    window.location ="detail.php?id="+movie.id;
+    })
+}
+
+let selectSort = document.getElementById("triMovies");
+selectSort.addEventListener('change', function() {
+    if(selectSort.value == "mark"){
+        console.log("mark");
+        moviesByPopularity();
+    } else if(selectSort.value == "name"){
+        moviesByName();
+    }
+})
+
+
+// Trier les films par nom
+function moviesByName() {
+    axios.get('https://api.themoviedb.org/3/trending/all/week?api_key=e5be04ec7de9aff432b14905a60c0bb8')
+    .then((response) => {
+        let movies = response.data.results;
+        let allMovieTitles = [];
+        let title = "";
+        movies.forEach(movie => {
+            if(movie.title == null){
+                title = movie.name
+            } else {
+                title = movie.title
+            }
+            allMovieTitles.push(title);
+        })
+        allMovieTitles.sort();
+        document.querySelectorAll('.divParent > div').forEach(e => e.remove());
+        showMoviesSort(allMovieTitles, movies, "title")
+    })
+}
+
+
+function moviesByPopularity(){
+    axios.get('https://api.themoviedb.org/3/trending/all/week?api_key=e5be04ec7de9aff432b14905a60c0bb8')
+    .then((response) => {
+        let movies = response.data.results;
+        let allMovieMark = [];
+        movies.forEach(movie => {
+            allMovieMark.push(movie.vote_average);
+        })
+        allMovieMark.sort().reverse();
+        console.log(allMovieMark)
+        document.querySelectorAll('.divParent > div').forEach(e => e.remove());
+        showMoviesSort(allMovieMark, movies, "mark")
+    })
+}
+
+
+function showMoviesSort(array, movies, element){
+    // Ajouter les films dans l'ordre (Pas du tout optimisé mais fonctionnel)
+    array.forEach(MovieOrder => {
+        movies.forEach(movie => {
+            let parent = document.querySelector('.divParent');
+            let film = document.createElement('div');
+            let title = "";
+            if(movie.title == null){
+                title = movie.name
+            } else {
+                title = movie.title
+            }
+            if(element == "mark"){
+                if(MovieOrder == movie.vote_average){
+                    showMovie(parent, film, movie)
+                }
+            } else {
+                if(title == MovieOrder){
+                    showMovie(parent, film, movie)
+                }
+            }
+        })
+    })
+}
