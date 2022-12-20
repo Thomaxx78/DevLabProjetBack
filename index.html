@@ -4,15 +4,26 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Vite App</title>
 </head>
 <body>
     <main>
         <h2 class="text-blue-700 m-auto">Films tendances</h2>
-        <div class="divParent flex flex-col"></div>
-        <select name="inputGetCategory" id="inputGetCategory" require>
-        </select>
-        <button id="finderButton">Rechercher</button>
+        <div class="flex justify-between">
+            <div>
+                <span>Trier par</span>
+                <select name="triMovies" id="triMovies">
+                    <option value="name">Nom</option>
+                    <option value="mark">Note</option>
+                </select>
+            </div>
+            <div>
+                <select name="inputGetCategory" id="inputGetCategory"></select>
+                <button id="finderButton">Rechercher</button>
+            </div>
+        </div>
+        <div class="divParent flex flex-wrap justify-center gap-8"></div>
     </main>
     <script type="module" src="js/main.js"></script>
 </body>
