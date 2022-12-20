@@ -17,9 +17,15 @@ function movieDetails(id) {
             console.log(movie);
             let parent = document.querySelector('main');
             let film = document.createElement('div');
+            let title = "";
+            if(movie.title == null){
+                title = movie.name
+            } else {
+                title = movie.title
+            }
             film.innerHTML = `
                 <div>
-                    <h1>${movie.title}</h1>
+                    <h1>${title}</h1>
                     <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
                     <p>${movie.overview}</p>
                     <p>Release date: ${movie.release_date}</p>

@@ -20,6 +20,10 @@ let finderbouton = document.getElementById("finderButton")
 let inputGetCategory = document.getElementById("inputGetCategory")
 
 // Créer une liste déroulante avec les genres de films pour la recherche par catégorie
+let option = document.createElement('option');
+option.innerHTML = "Ne pas trier"
+option.value = null;
+inputGetCategory.appendChild(option);
 axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
 .then((response) => {
     let genres = response.data.genres;
@@ -81,23 +85,27 @@ function showMovie(parent, film, movie){
     parent.appendChild(film);
     film.classList.add("flex", "flex-col", "items-center", "rounded", "shadow", "m-2", "p-2", "w-64", "bg-white", "text-black", "hover:bg-gray-200", "hover:text-gray-800", "transition", "duration-500", "ease-in-out", "transform", "hover:-translate-y-1", "hover:scale-110");
     film.children[film.children.length-1].addEventListener('click', event => {
-    window.location ="detail.php?id="+movie.id;
+        window.location ="detail.php?id="+movie.id;
     })
 }
 
 let selectSort = document.getElementById("triMovies");
 selectSort.addEventListener('change', function() {
-    if(selectSort.value == "mark"){
-        console.log("mark");
-        moviesByPopularity();
+    if(selectSort.value == "markUp"){
+        moviesByPopularity("Up");
+    } else if(selectSort.value == "markDown"){
+        moviesByPopularity("Down");
     } else if(selectSort.value == "name"){
         moviesByName();
+    } else if(selectSort.value == "noSort"){
+        document.querySelectorAll('.divParent > div').forEach(e => e.remove());
+        popularMovies();
     }
 })
 
 
 // Trier les films par nom
-function moviesByName() {
+function moviesByName(genre = 28) {
     axios.get('https://api.themoviedb.org/3/trending/all/week?api_key=e5be04ec7de9aff432b14905a60c0bb8')
     .then((response) => {
         let movies = response.data.results;
@@ -118,7 +126,7 @@ function moviesByName() {
 }
 
 
-function moviesByPopularity(){
+function moviesByPopularity(how){
     axios.get('https://api.themoviedb.org/3/trending/all/week?api_key=e5be04ec7de9aff432b14905a60c0bb8')
     .then((response) => {
         let movies = response.data.results;
@@ -126,16 +134,18 @@ function moviesByPopularity(){
         movies.forEach(movie => {
             allMovieMark.push(movie.vote_average);
         })
-        allMovieMark.sort().reverse();
-        console.log(allMovieMark)
+        allMovieMark.sort();
+        if(how == "Down"){
+            allMovieMark.reverse();
+        }
+        // console.log(allMovieMark)
         document.querySelectorAll('.divParent > div').forEach(e => e.remove());
         showMoviesSort(allMovieMark, movies, "mark")
     })
 }
 
-
+// Ajouter les films dans l'ordre (Pas optimisé mais fonctionnel)
 function showMoviesSort(array, movies, element){
-    // Ajouter les films dans l'ordre (Pas du tout optimisé mais fonctionnel)
     array.forEach(MovieOrder => {
         movies.forEach(movie => {
             let parent = document.querySelector('.divParent');
