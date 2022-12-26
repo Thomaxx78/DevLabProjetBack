@@ -517,6 +517,10 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.z-10{
+  z-index: 10;
+}
+
 .grad{
   grid-template-columns: 100%;
   grid-template-rows: 10% 30% 20% 40%;
