@@ -1,26 +1,14 @@
-<?php require 'require/head.php' ?>
+<?php 
+require 'require/head.php';
+require 'require/nav.php'; ?>
 
-<h1>Se connecter:</h1><br>
-<form method="post" >
-    <input type="email" name="email" placeholder="E-mail"><br>
-    <input type="password" name="password" placeholder="Password"><br>
-    <input type="submit" value="Register" name="connect">
+<body class="w-full bg-violetwe">
+<div class="mt-16 w-3/12 h-auto bg-white ml-auto mr-auto text-center rounded-lg p-4 border-2 border-darkgrey">
+    <p class="text-2xl text-darkgrey font-semibold">Se connecter</p>
+    <form class="mt-8">
+        <input type="email" name="email" placeholder="E-mail"><br>
+        <input type="password" name="password1" placeholder="Password"><br>
+        <input class="bg-darkgrey text-darkgrey mt-4 px-2 rounded-lg" type="submit" value="connexion" name="connect">
 </form>
-
-<?php
-
-require 'class/connection.php';
-require 'class/userconnect.php';
-
-if ($_POST) {
-    $user = new userconnect(
-        $_POST['email'],
-        $_POST['password'],
-    );
-    $connection = new Connection();
-    if ($connection->recuperationAccount($user)) {
-        header("Location: index.php");
-        $_SESSION["normal"] = $user;
-        $_SESSION['id'] = $connection->recuperationId($user);
-    }
-}
+</div>
+</body>

@@ -10,8 +10,16 @@
 		</div>
         <input type="text" class="hidden lg:block lg:w-2/12 lg:h-8 lg:rounded-lg lg:bg-white lg:p-2 ml-40 mr-auto" placeholder="Rechercher votre film">
 		<ul class="hidden  lg:flex ">
-			<li <a href="connexion.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">S'inscrire</a></li>
-			<li><a href="inscription.php" class="hidden lg:block text-xl text-white mr-8 border-2 rounded-lg border-white px-2 py-1">Se connecter</a></li>
+            <?php 
+
+            session_start();
+            if (isset($_SESSION['normal'])) { ?>
+            <li> <a href="deconnection.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Déconnection</a></li>
+            <?php } 
+            else { ?>
+			<li> <a href="inscription.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">S'inscrire</a></li>
+			<li><a href="connexion.php" class="hidden lg:block text-xl text-white mr-8 border-2 rounded-lg border-white px-2 py-1">Se connecter</a></li>
+            <?php } ?>
 		</ul>
 	</nav>
 	<div class="navbar-menu relative z-50 hidden">

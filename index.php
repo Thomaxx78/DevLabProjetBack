@@ -6,8 +6,8 @@ require 'require/head.php'
         <?php require 'require/nav.php' ?>
     </header>
     <div class="flex">
-        <div class="fixed bg-semidarkgrey lg:w-96 lg:ml-0 lg:mr-auto lg:pt-8 lg:h-screen lg:flex-col">
-            <div class="hidden lg:block">
+        <div class="h-full bg-semidarkgrey lg:w-96 lg:ml-0 lg:mr-auto lg:pt-8  ">
+            <!--<div class="hidden lg:block">
                 <h2 class=" text-white text-3xl text-center font-semibold">Découvrir:</h2>
                 <p class="text-2xl text-white ml-8 lg:mt-4">Trier par:</p>
                 <p class="lg:ml-16 text-lightgrey text-xl mt-2">Noms</p>
@@ -34,9 +34,10 @@ require 'require/head.php'
                     <li>Horreur</li>
                     <li>Horreur</li>
                 </ul>
-                <a href="#" class="py-1 px-2 rounded-lg bg-white text-center text-semidarkgrey font-semibold text-xl ml-auto mr-auto">Rechercher</a>
+                <a href="#" class="py-1 px-2 rounded-lg bg-white  text-semidarkgrey font-semibold text-xl ml-auto">Rechercher</a>
                 <div>
                 <script type="module" src="js/main.js"></script>
+-->
                 </div>
             </div>
         <div class="flex-col ml-4 lg:hidden">
