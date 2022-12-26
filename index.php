@@ -6,14 +6,12 @@ require 'require/head.php'
         <?php require 'require/nav.php' ?>
     </header>
     <div class="flex">
-        <div class="hidden lg:grid h-full fixed bg-semidarkgrey lg:w-96 lg:ml-0 lg:mr-auto lg:pt-28 bottom-0 lg:grid-rows-[10%_22%_10%_40%_18%]">
+        <div class="hidden lg:grid h-full fixed bg-semidarkgrey lg:w-96 lg:ml-0 lg:mr-auto lg:pt-28 bottom-0 lg:grid-rows-[10%_7%_7%_7%_10%_45%_8%]">
                 <h2 class=" text-white text-3xl text-center font-semibold m-auto row-span-1">Découvrir:</h2>
-                <div>
                     <p class="text-2xl text-white ml-8 mt-2">Trier par:</p>
                     <p class="lg:ml-16 text-lightgrey text-xl mt-2">Noms</p>
                     <p class="lg:ml-16 text-lightgrey text-xl mt-2">Notes</p>
-                </div>
-                <h3 class="text-2xl text-white ml-8 my-auto">Catégorie:</h3>
+                <h3 class="text-2xl text-white ml-8 mt-4">Catégorie:</h3>
                 <ul class="ml-16 grid grid-cols-3 text-lightgrey text-xl">
                     <li>Horreur</li>
                     <li>Horreur</li>

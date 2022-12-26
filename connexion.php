@@ -1,9 +1,11 @@
 <?php 
-require 'require/head.php';
-require 'require/nav.php'; ?>
-
+require 'require/head.php'
+?>
 <body class="w-full bg-violetwe">
-<div class="mt-16 w-3/12 h-auto bg-white ml-auto mr-auto text-center rounded-lg p-4 border-2 border-darkgrey">
+    <header class="z-40 sticky w-full bg-darkgrey mt-0 mb-auto py-2">
+        <?php require 'require/nav.php' ?>
+    </header>
+<div class="mt-16 w-3/12 h-auto bg-white ml-auto mr-auto text-center rounded-lg p-4 border-8 border-darkgrey">
     <p class="text-2xl text-darkgrey font-semibold">Se connecter</p>
     <form class="mt-8">
         <input type="email" name="email" placeholder="E-mail"><br>
