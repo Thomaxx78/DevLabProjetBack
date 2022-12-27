@@ -526,6 +526,14 @@ video {
   grid-template-rows: 10% 30% 20% 40%;
 }
 
+.bg-semidarkgrey{
+  background-color: #413F3F;
+}
+
+.bg-lightgrey{
+  background-color: #413F3F;
+}
+
 .darkgrey{
   color: #201F1F;
 }
