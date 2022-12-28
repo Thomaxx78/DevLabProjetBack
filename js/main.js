@@ -1,6 +1,6 @@
-import '../style.css'
+// import '../output.css'
 
-import axios from 'axios';
+// import axios from 'axios';
 
 // Récupérer les films populaires sur la premiere pages de tendances de la semaine (20 films)
 function popularMovies() {
@@ -97,20 +97,28 @@ function showMovie(parent, film, movie){
     })
 }
 
-let selectSort = document.getElementById("triMovies");
-selectSort.addEventListener('change', function() {
-    if(selectSort.value == "markUp"){
-        moviesByPopularity(3, "Up");
-    } else if(selectSort.value == "markDown"){
-        moviesByPopularity(3, "Down");
-    } else if(selectSort.value == "name"){
-        moviesByName();
-    } else if(selectSort.value == "review"){
-        moviesByPopularity(4, "Down");
-    } else if(selectSort.value == "noSort"){
-        document.querySelectorAll('.divParent > div').forEach(e => e.remove());
-        popularMovies();
-    }
+let selectSort = document.querySelectorAll("#triMovies > span");
+selectSort.forEach(select => {
+    select.addEventListener('click', function() {
+        switch (select.innerHTML) {
+            case 'Note croissante':
+                moviesByPopularity(3, "Up");
+                break;
+            case 'Note décroissante':
+                moviesByPopularity(3, "Down");
+                break;
+            case 'Nom':
+                moviesByName();
+                break;
+            case 'Avis imbd':
+                moviesByPopularity(4, "Down");
+                break;
+            default:
+                document.querySelectorAll('.divParent > div').forEach(e => e.remove());
+                popularMovies();
+                break;
+        }
+    })
 })
 
 function moviesByName(){
@@ -138,7 +146,6 @@ function moviesByPopularity(option, how){
         allMoviesDictionaryMark[movie.children[option].innerHTML] = movie.children[1].innerHTML;
         allMoviesDictionary[movie.children[1].innerHTML] = movie;
     })
-<<<<<<< HEAD
     allMovieMarks.sort();
         if(how == "Down"){
             allMovieMarks.reverse();
@@ -148,7 +155,4 @@ function moviesByPopularity(option, how){
         document.querySelector('.divParent').appendChild(allMoviesDictionary[allMoviesDictionaryMark[mark]]);
     })
 }
-=======
-}
 
->>>>>>> origin/thomas
