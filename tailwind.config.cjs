@@ -16,6 +16,6 @@ module.exports = {
       backgroundImage: {
         'coco': "src='public/Fade-In-Background.svg'",
         'footer-texture': "url('/img/footer-texture.png')",
-       }}}
-  plugins: [],
+      }}}
+  // plugins: [],
 }

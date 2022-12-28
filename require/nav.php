@@ -1,4 +1,4 @@
-<nav class="top-0 left-0 w-full px-4 py-4 flex justify-between items-center">
+	<nav class=" bg-darkgrey top-0 left-0 w-full px-4 py-4 flex justify-between items-center">
 		<a href="index.php" class="lg:ml-16"><img src="public/logo.png" class="w-48 lg:w-48" alt="Logo de Mon Expert Propreté"></a>
 		<div class="lg:hidden">
 		<button class="navbar-burger flex items-center text-white p-3">
@@ -11,14 +11,12 @@
         <input type="text" class="hidden lg:block lg:w-2/12 lg:h-8 lg:rounded-lg lg:bg-white lg:p-2 ml-40 mr-auto" placeholder="Rechercher votre film">
 		<ul class="hidden  lg:flex ">
             <?php 
-
-            session_start();
-            if (isset($_SESSION['normal'])) { ?>
-            <li> <a href="deconnection.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Déconnection</a></li>
+            if (isset($_SESSION['username'])) { ?>
+            <li> <a href="logout.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Déconnection</a></li>
             <?php } 
             else { ?>
-			<li> <a href="inscription.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white">S'inscrire</a></li>
-			<li><a href="connexion.php" class="hidden lg:block text-xl text-white mr-8 border-2 rounded-lg border-white px-2 py-1 hover:text-black hover:bg-white">Se connecter</a></li>
+			<li> <a href="signin.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white">S'inscrire</a></li>
+			<li><a href="login.php" class="hidden lg:block text-xl text-white mr-8 border-2 rounded-lg border-white px-2 py-1 hover:text-black hover:bg-white">Se connecter</a></li>
             <?php } ?>
 		</ul>
 	</nav>

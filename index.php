@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <?php require 'require/head.php';?>
 <!DOCTYPE html>
 <body>
@@ -24,7 +27,8 @@
             </div>
         </div>
     </div>
-    <div class="divParent flex flex-wrap justify-center gap-8 ml-96"></div>
+    <div class="divParent flex flex-wrap justify-center gap-8 ml-96">
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>
