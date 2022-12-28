@@ -10,6 +10,7 @@
 <body>
     <main>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/takeDetails.js"></script>
 </body>
 </html>
