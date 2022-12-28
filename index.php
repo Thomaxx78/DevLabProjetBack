@@ -39,9 +39,10 @@ require 'require/head.php'
         <div class="w-full h-16 bg-black ml-96">
             <h1 class="text-white">Resultat tri</h1>
         </div>
+        <script type="module" src="js/takeDetails.js"></script>
     </div>
 
-    
+
             <div class="lg:hidden block h-auto w-full p-4 bg-lightgrey">
         <div class="flex-col ml-4 lg:hidden">
             <h2 class="text-white text-2xl m-auto">Films tendances</h2>
