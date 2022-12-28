@@ -10,63 +10,10 @@ class Connection
         $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', 'root');
     }
 
-    // public function insert(User $user): bool
-    // {
-    //     $query = 'INSERT INTO user (pseudo, email, password)
-    // VALUES (:pseudo, :email, :password)';
-
-    //     $statement = $this->pdo->prepare($query);
-
-    //     return $statement->execute([
-    //         'pseudo' => $user->pseudo,
-    //         'email' => $user->email,
-    //         'password' => md5($user->password . 'MY_SUPER_SALT'),
-    //     ]);
-    // }
-
-    // public function getAll(): array
-    // {
-    //     $query = 'SELECT * FROM user';
-
-    //     $statement = $this->pdo->prepare($query);
-    //     $statement->execute();
-
-    //     return $statement->fetchAll(PDO::FETCH_ASSOC);
-    // }
-
-    // public function recuperationAccount(userconnect $user): bool
-    // {
-    //     $youremail = $user->email;
-    //     $yourpassword = "SELECT password FROM user WHERE email LIKE '%$youremail%'";
-
-    //     $convertPassword = $this->pdo->prepare($yourpassword);
-    //     $convertPassword->execute();
-
-    //     $password = $convertPassword->fetchAll(PDO::FETCH_ASSOC);
-    //     if(md5( $user->password. 'MY_SUPER_SALT') == $password[0]['password']) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
-    // public function recuperationId(userconnect $user): int
-    // {
-    //     $logemail = $user->email;
-    //     $logid = "SELECT id FROM user WHERE email LIKE '%$logemail%'";
-
-    //     $convertId = $this->pdo->prepare($logid);
-    //     $convertId->execute();
-
-    //     $id = $convertId->fetchAll(PDO::FETCH_ASSOC);
-    //     var_dump($id[0]['id']);
-    //     return $id[0]['id'];
-    // }
-
     public function insert(User $user): bool
     {
-        $query = 'INSERT INTO user (email, password, username)
-                VALUES (:email, :password, :username)';
+        $query = 'INSERT INTO user (email, password, username, description, age, logo)
+                VALUES (:email, :password, :username, :description, :age, :logo)';
 
         $statement = $this->pdo->prepare($query);
 
@@ -74,6 +21,9 @@ class Connection
             'email' => $user->email,
             'password'=>md5($user->password . 'SALT'),
             'username' => $user->username,
+            'description' => $user->description,
+            'age' => $user->age,
+            'logo' => $user->logo,
         ]);
     }
 
@@ -83,5 +33,56 @@ class Connection
         $jeRecup->execute();
         $datas=$jeRecup->fetch();
         return $datas;
+    }
+
+
+    public function GetUsers()
+    {
+        $query = 'SELECT * FROM user ORDER BY id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
+        $data = $statement->fetchAll();
+        return $data;
+
+    }
+
+    public function GetSingleUser($id): bool|array
+    {
+        $get = "SELECT * FROM user WHERE id = $id";
+        $request2 = $this->pdo->query($get);
+        return $request2->fetchAll();
+    }
+
+    public function insertAlbum(Album $album)
+    {
+        $query = 'INSERT INTO album (name, privacy, user_id)
+                VALUES (:name, :privacy, :user_id)';
+
+        $statement = $this->pdo->prepare($query);
+
+        return $statement->execute([
+            'name' => $album->name,
+            'privacy'=> $album->privacy,
+            'user_id'=>$album->user_id,
+        ]);
+    }
+
+    public function getAlbumFromID($id)
+    {
+        $query =  'SELECT * from album WHERE user_id = '.$id;
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
+
+        $data = $statement->fetchAll();
+        return $data;
+    }
+
+    public function deleteAlbum(int $id){
+        $query = 'DELETE FROM album WHERE id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $id,
+        ]);
+        return $statement;
     }
 }

@@ -13,6 +13,7 @@
             <?php 
             if (isset($_SESSION['username'])) { ?>
             <li> <a href="logout.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Déconnection</a></li>
+			<li> <a href="dashboard.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Profil</a></li>
             <?php } 
             else { ?>
 			<li> <a href="signin.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white">S'inscrire</a></li>

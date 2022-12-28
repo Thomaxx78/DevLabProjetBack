@@ -30,6 +30,9 @@ session_start();
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['password'] = $user['password'];
                 $_SESSION['username'] = $user['username'];
+                $_SESSION['description'] = $user['description'];
+                $_SESSION['age'] = $user['age'];
+                $_SESSION['logo'] = $user['logo'];
                 $_SESSION['role'] = $user['role'];
                 $_SESSION['id'] = $user['id'];
                 if($_SESSION['role'] == 'autorisé'){
