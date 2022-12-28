@@ -138,6 +138,7 @@ function moviesByPopularity(option, how){
         allMoviesDictionaryMark[movie.children[option].innerHTML] = movie.children[1].innerHTML;
         allMoviesDictionary[movie.children[1].innerHTML] = movie;
     })
+<<<<<<< HEAD
     allMovieMarks.sort();
         if(how == "Down"){
             allMovieMarks.reverse();
@@ -147,3 +148,7 @@ function moviesByPopularity(option, how){
         document.querySelector('.divParent').appendChild(allMoviesDictionary[allMoviesDictionaryMark[mark]]);
     })
 }
+=======
+}
+
+>>>>>>> origin/thomas
