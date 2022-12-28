@@ -19,7 +19,7 @@
             </div>
             <div>
                 <h3 class="text-2xl text-white ml-8 mt-4">Catégorie:</h3>
-                <select name="inputGetCategory" id="inputGetCategory"></select>
+                <div name="inputGetCategory" id="inputGetCategory"></div>
                 <button id="finderButton" class="h-10 py-1 px-2 rounded-lg bg-white text-semidarkgrey font-semibold text-xl mx-auto mt-4">Rechercher</button>
             </div>
         </div>

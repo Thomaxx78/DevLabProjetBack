@@ -22,7 +22,7 @@ let inputGetCategory = document.getElementById("inputGetCategory")
 let option = document.createElement('option');
 option.innerHTML = "Ne pas trier";
 option.value =  "No";
-inputGetCategory.appendChild(option);
+inputGetCategory.appendChild(span);
 // Créer une liste déroulante avec les genres de films pour la recherche par catégorie
 axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
 .then((response) => {
