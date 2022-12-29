@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <?php require 'require/head.php';?>
 <!DOCTYPE html>
 <body>
@@ -27,8 +30,8 @@
         <h3 class="text-2xl text-white">Trier Version Téléphone</h3>
     </div>
     <div class="divParent flex flex-wrap justify-center gap-8 ml-96 mt-40"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js%22%3E"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
 </html>
