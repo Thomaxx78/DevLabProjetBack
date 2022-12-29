@@ -7,7 +7,7 @@ class Connection
     public function __construct()
     {
         // $this->pdo = new PDO('mysql:dbname=delimovie; host=127.0.0.1', 'root', 'root');
-        $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', 'root');
+        $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', '');
     }
 
     public function insert(User $user): bool
@@ -84,5 +84,38 @@ class Connection
             'id' => $id,
         ]);
         return $statement;
+    }
+
+    public function verifyMovie($id){
+        $query = 'SELECT * FROM film WHERE film_id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $id,
+        ]);
+        $data = $statement->fetchAll();
+        if(!$data){
+            $addMovie = 'INSERT INTO film (film_id) VALUES (:id)';
+            $statement = $this->pdo->prepare($addMovie);
+            $statement->execute([
+                'id' => $id,
+            ]);
+        }
+    }
+
+    public function addMovieToAlbum($film_id, $album_id){
+        $getId = 'SELECT * FROM film WHERE film_id = :id';
+        $statement = $this->pdo->prepare($getId);
+        $statement->execute([
+            'id' => $film_id,
+        ]);
+        $data = $statement->fetchAll();
+        $movie_id = $data[0]['id'];
+        $query = 'INSERT INTO album_film (album_id, film_id)
+                VALUES (:album_id, :movie_id)';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'album_id' => $album_id,
+            'movie_id'=> $movie_id,
+        ]);
     }
 }

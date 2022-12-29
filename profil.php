@@ -16,15 +16,10 @@
 <?php require 'require/head.php';?>
 <body>
     <?php
-        if (isset($_SESSION['role']) && $_SESSION['role'] === 'autorisé') {
-            $verify = 1;
-            // $connection = new Connection();
-            // $albums = $connection->GetAlbums();
-        }
-        if($verify != 1){
+        if (!isset($_SESSION['role']) && $_SESSION['role'] != 1) {
             header('Location:login.php');
         }
-
+        
         require_once 'require/nav.php';
     ?>
 

@@ -35,7 +35,7 @@ session_start();
                 $_SESSION['logo'] = $user['logo'];
                 $_SESSION['role'] = $user['role'];
                 $_SESSION['id'] = $user['id'];
-                if($_SESSION['role'] == 'autorisé'){
+                if($_SESSION['role'] == 1){
                     header('Location: dashboard.php');
                 }
             }   

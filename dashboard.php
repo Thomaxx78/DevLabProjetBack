@@ -1,6 +1,7 @@
 <?php
     session_start();
     require_once 'class/connection.php';
+    require_once 'class/album.php';
 
     if(isset($_POST["deleteAlbum"])){
         $connection = new Connection();
@@ -11,15 +12,31 @@
             echo "Erreur dans la supression";
         }
     }
+
+    $connection = new Connection();
+    $allalbums = $connection->getAlbumFromID($_SESSION['id']);
+    if (isset($_POST["addAlbum"])) {
+        $album = new Album(
+            $_POST['name'],
+            $_POST['privacy'],
+            $_SESSION['id'],
+        );
+
+        $connection = new Connection();
+        $ajout = $connection->insertAlbum($album);
+        if ($ajout) {
+            echo 'Album Crée';
+            header('Location: dashboard.php');
+        } else {
+            echo 'Echec 🥲';
+        }
+    }
 ?>
 <?php require 'require/head.php';?>
 
 <body>
     <?php
-        if (isset($_SESSION['role']) && $_SESSION['role'] === 'autorisé') {
-            $verify = 1;
-        }
-        if($verify != 1){
+        if (!isset($_SESSION['role']) && $_SESSION['role'] != 1) {
             header('Location:login.php');
         }
 
@@ -58,27 +75,9 @@
 
     <?php
     require_once 'class/connection.php';
-    require_once 'class/album.php';
     require_once 'class/user.php';
-    $connection = new Connection();
-    $allalbums = $connection->getAlbumFromID($_SESSION['id']);
 
-    if (isset($_POST["addAlbum"])) {
-        $album = new Album(
-            $_POST['name'],
-            $_POST['privacy'],
-            $_SESSION['id'],
-        );
-
-        $connection = new Connection();
-        $ajout = $connection->insertAlbum($album);
-            if ($ajout) {
-                echo 'Album Crée';
-                header('Location: dashboard.php');
-            } else {
-                echo 'Echec 🥲';
-            }
-        }
+    
     ?>
 
     <div>

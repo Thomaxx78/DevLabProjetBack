@@ -10,7 +10,7 @@ let movieId = search.replace('?id=', '')
 
 // Récupérer les détails d'un film
 function movieDetails(id) {
-    console.log('id');
+    // console.log('id');
     axios .get('https://api.themoviedb.org/3/movie/' + id + '?api_key=e5be04ec7de9aff432b14905a60c0bb8')
         .then((response) => {
             let movie = response.data;
