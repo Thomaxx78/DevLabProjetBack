@@ -16,7 +16,7 @@
     <main>
         <div>
             <h2>Ajouter à un album</h2>
-            <form method="GET">
+            <form method="POST">
                 <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
                 <select name="albumChoice" id="albumChoice">
                     <?php 
@@ -32,10 +32,10 @@
             </form>
             <?php
 
-                if(isset($_GET['albumChoice'])){
+                if(isset($_POST['albumChoice'])){
                     $connection = new Connection();
                     $connection->verifyMovie($_GET['id']);
-                    $connection->addMovieToAlbum($_GET['id'], $_GET['albumChoice']);
+                    $connection->addMovieToAlbum($_GET['id'], $_POST['albumChoice']);
                 }
             ?>
         </div>

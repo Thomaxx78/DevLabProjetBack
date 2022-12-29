@@ -67,6 +67,17 @@ class Connection
         ]);
     }
 
+    public function getAlbum($albumId)
+    {
+        $query = 'SELECT * FROM album WHERE id = :albumId';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'albumId' => $albumId,
+        ]);
+        $data = $statement->fetchAll();
+        return $data;
+    }
+
     public function getAlbumFromID($id)
     {
         $query =  'SELECT * from album WHERE user_id = '.$id;
@@ -117,5 +128,27 @@ class Connection
             'album_id' => $album_id,
             'movie_id'=> $movie_id,
         ]);
+    }
+
+    public function getMoviesFromAlbum($album_id){
+        $query = 'SELECT film_id FROM album_film WHERE album_id = :album_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'album_id' => $album_id,
+        ]);
+        $id_film = $statement->fetchAll();
+
+        // return $id_film;
+
+        $date = [];
+        foreach($id_film as $id){
+            $querry = 'SELECT * FROM film WHERE id = :id';
+            $statement = $this->pdo->prepare($querry);
+            $statement->execute([
+                'id' => $id["film_id"],
+            ]);
+            $data[] = $statement->fetchAll();
+        }
+        return $data;   
     }
 }
