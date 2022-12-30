@@ -6,7 +6,6 @@ class Connection
 
     public function __construct()
     {
-        // $this->pdo = new PDO('mysql:dbname=delimovie; host=127.0.0.1', 'root', 'root');
         $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', '');
     }
 
@@ -204,14 +203,64 @@ class Connection
             'user_id' => $user_id,
         ]);
         $data = $statement->fetchAll();
+        if($data){
+            $query = 'SELECT * FROM album WHERE id = :id';
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                'id' => $data[0]['id_album'],
+            ]);
+            return $statement->fetchAll();
+        } else {
+            return [];
+        }
+    }
 
-        $query = 'SELECT * FROM album WHERE id = :id';
+    public function wantToShare($album_id, $user_id){
+        $query = 'SELECT is_accepted FROM album_share WHERE id_album = :album_id AND id_owner = :user_id';
         $statement = $this->pdo->prepare($query);
         $statement->execute([
-            'id' => $data[0]['id_album'],
+            'album_id' => $album_id,
+            'user_id' => $user_id,
+        ]);
+        return $statement->fetchAll()[0][0];
+    }
+
+    public function getNotificationFromID($user_id){
+        $query = 'SELECT * FROM album_share WHERE id_user = :user_id AND is_accepted = 0';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'user_id' => $user_id,
         ]);
         $data = $statement->fetchAll();
-        return $data;
+        if($data){
+            foreach($data as $key => $value){
+                $query = 'SELECT * FROM album WHERE id = :id';
+                $statement = $this->pdo->prepare($query);
+                $statement->execute([
+                    'id' => $value['id_album'],
+                ]);
+                $data[$key]['album'] = $statement->fetchAll();
+            }
+            return $data;
+        } else {
+            return [];
+        }
+    }
+
+    public function acceptShare($id){
+        $query = 'UPDATE album_share SET is_accepted = 1 WHERE id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $id,
+        ]);
+    }
+
+    public function refuseShare($id){
+        $query = 'DELETE FROM album_share WHERE id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $id,
+        ]);
     }
 }
 

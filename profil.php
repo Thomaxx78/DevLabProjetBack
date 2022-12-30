@@ -57,7 +57,8 @@
                 <?php 
                 $albumsShare = $connection->getSharedAlbums($userId);
 				foreach ($albumsShare as $albumShare){
-                    if($album['privacy'] == "public"){?>
+                    $share = $connection->wantToShare($albumShare['id'], $albumShare['user_id']);
+                    if($albumShare['privacy'] == "public" and $share==1){?>
                         <p><?=$albumShare['name']?></p>
                         <a href="album.php?id=<?=($albumShare['id'])?>">Voir l'album</a>
 				<?php }}?>
