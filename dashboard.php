@@ -36,7 +36,7 @@
 
 <body class="bg-violetwe">
     <?php
-        if (!isset($_SESSION['role']) && $_SESSION['role'] != 1) {
+        if (!isset($_SESSION['username'])) {
             header('Location:login.php');
         }
 

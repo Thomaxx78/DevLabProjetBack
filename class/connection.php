@@ -23,8 +23,7 @@ class Connection
             'username' => $user->username,
             'description' => $user->description,
             'age' => $user->age,
-            'logo' => $user->logo,
-            'role' => 1
+            'logo' => $user->logo
         ]);
     }
 
@@ -185,6 +184,34 @@ class Connection
             'id' => $album_id,
         ]);
         return $statement->fetchAll()[0][0];
+    }
+
+    public function shareAlbum($album_id, $user_id, $owner_id){
+        $query = 'INSERT INTO album_share (id_album, id_user, id_owner)
+                VALUES (:album_id, :user_id, :owner_id)';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'album_id' => $album_id,
+            'user_id' => $user_id,
+            'owner_id' => $owner_id,
+        ]);
+    }
+
+    public function getSharedAlbums($user_id){
+        $query = 'SELECT * FROM album_share WHERE id_user = :user_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'user_id' => $user_id,
+        ]);
+        $data = $statement->fetchAll();
+
+        $query = 'SELECT * FROM album WHERE id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $data[0]['id_album'],
+        ]);
+        $data = $statement->fetchAll();
+        return $data;
     }
 }
 
