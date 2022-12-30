@@ -31,19 +31,19 @@
             <h2>Informations</h2>
             <div>
                 <h3>Nom de l'album</h3>
-                <p><?php echo $album['name'];?></p>
+                <p><?= $album['name'];?></p>
             </div>
             <div>
                 <h3>Créateur</h3>
-                <p><?php echo $owner["username"]?></p>
+                <p><?= $owner["username"]?></p>
             </div>
             <div>
                 <h3>Visibilité</h3>
-                <p><?php echo $album['privacy'];?></p>
+                <p><?= $album['privacy'];?></p>
             </div>
             <div>
                 <h3>Nombre de likes</h3>
-                <p><?php echo $album['likes'];?></p>
+                <p><?= $connection->countLikes($_GET['id'])?></p>
                 <form method="POST">
                     <input type="hidden" name="like_album" id="like_album" value="<?= $album['id'];?>">
                     <button type="submit">Liker l'album</button>
@@ -66,8 +66,8 @@
 
         <?php
             if(isset($_POST['like_album'])){
-                $connection->likeAlbum($_POST['like_album']);
-                header("Refresh:1");
+                $connection->likeAlbum($_POST['like_album'], $_SESSION['id']);
+                header("Refresh:0");
             }
         ?>
 

@@ -138,12 +138,11 @@ class Connection
         ]);
         $id_film = $statement->fetchAll();
 
-        // return $id_film;
 
         $data = [];
         foreach($id_film as $id){
-            $querry = 'SELECT * FROM film WHERE id = :id';
-            $statement = $this->pdo->prepare($querry);
+            $query = 'SELECT * FROM film WHERE id = :id';
+            $statement = $this->pdo->prepare($query);
             $statement->execute([
                 'id' => $id["film_id"],
             ]);
@@ -152,11 +151,39 @@ class Connection
         return $data;   
     }
 
-    public function likeAlbum($album){
-        $query = 'UPDATE album SET likes = likes + 1 WHERE id = :id';
+    public function likeAlbum($album_id, $user_id){
+        $query = 'SELECT * FROM likes_album WHERE album_id = :album_id AND user_id = :user_id';
         $statement = $this->pdo->prepare($query);
         $statement->execute([
-            'id' => $album,
+            'album_id' => $album_id,
+            'user_id' => $user_id,
         ]);
+        $data = $statement->fetchAll();
+        if($data){
+            $query = 'DELETE FROM likes_album WHERE album_id = :album_id AND user_id = :user_id';
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                'album_id' => $album_id,
+                'user_id' => $user_id,
+            ]);
+        }else{
+            $query = 'INSERT INTO likes_album (album_id, user_id)
+                VALUES (:album_id, :user_id)';
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                'album_id' => $album_id,
+                'user_id' => $user_id,
+            ]);
+        }
+    }
+
+    public function countLikes($album_id){
+        $query = 'SELECT COUNT(*) FROM likes_album WHERE album_id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $album_id,
+        ]);
+        return $statement->fetchAll()[0][0];
     }
 }
+
