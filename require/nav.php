@@ -1,5 +1,5 @@
 	<nav class=" bg-darkgrey top-0 left-0 w-full px-4 py-4 flex justify-between items-center">
-		<a href="index.php" class="lg:ml-16"><img src="public/logo.png" class="w-48 lg:w-48" alt="Logo de Mon Expert Propreté"></a>
+		<a href="index.php" class="lg:ml-8"><img src="public/logo.png" class="w-48 lg:w-48" alt="Logo de Mon Expert Propreté"></a>
 		<div class="lg:hidden">
 		<button class="navbar-burger flex items-center text-white p-3">
 				<svg class="block h-8 w-8 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

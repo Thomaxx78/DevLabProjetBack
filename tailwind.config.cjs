@@ -10,6 +10,7 @@ module.exports = {
       colors:{
         'violetwe': '#646ECB',
         'darkgrey': '#201f1f',
+        'darklightgrey': '#8f8a8a',
         'semidarkgrey': '#413F3F',
         'lightgrey': '#bcbcbc'     
       },

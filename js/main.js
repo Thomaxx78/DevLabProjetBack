@@ -85,7 +85,7 @@ function showMovie(parent, film, movie){
     film.innerHTML = 
     `
     <img class="w-32" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
-    <span class="text-center">${title}</span>
+    <span class="text-center mt-1">${title}</span>
     <button class="detailsMovie text-white" value="${movie.id}">Movie Details</button>
     <span class="hidden">${movie.vote_average}</span>
     <span class="hidden">${movie.popularity}</span>
