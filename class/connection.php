@@ -24,6 +24,7 @@ class Connection
             'description' => $user->description,
             'age' => $user->age,
             'logo' => $user->logo,
+            'role' => 1
         ]);
     }
 
