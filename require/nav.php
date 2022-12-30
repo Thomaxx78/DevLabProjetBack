@@ -8,7 +8,7 @@
 				</svg>
 			</button>
 		</div>
-        <input type="text" class="hidden lg:block lg:w-2/12 lg:h-8 lg:rounded-lg lg:bg-white lg:p-2 ml-40 mr-auto" placeholder="Rechercher votre film">
+        <input type="text" id="searchBar" class="hidden lg:block lg:w-2/12 lg:h-8 lg:rounded-lg lg:bg-white lg:p-2 ml-40 mr-auto" placeholder="Rechercher votre film">
 		<ul class="hidden  lg:flex ">
             <?php 
             if (isset($_SESSION['username'])) { ?>

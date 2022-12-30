@@ -11,6 +11,7 @@
                 $_POST['age'],
                 $_FILES['logo']['name'],
         );
+        var_dump($user);
         $img_name = $_FILES['logo']['name'];
         $tmp_img_name = $_FILES['logo']['tmp_name'];
         $folder = 'images/avatars/';
@@ -26,7 +27,7 @@
                 echo 'Internal error 🥲';
             }
         } else {
-            echo 'Erreur';
+            echo 'Erreur de saisie';
         }
     }
 ?>

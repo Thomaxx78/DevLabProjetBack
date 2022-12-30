@@ -44,9 +44,8 @@ session_start();
                 $_SESSION['description'] = $user['description'];
                 $_SESSION['age'] = $user['age'];
                 $_SESSION['logo'] = $user['logo'];
-                $_SESSION['role'] = $user['role'];
                 $_SESSION['id'] = $user['id'];
-                if($_SESSION['role'] == 1){
+                if (isset($_SESSION['username'])) {
                     header('Location: dashboard.php');
                 }
             }   

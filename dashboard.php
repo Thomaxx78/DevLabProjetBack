@@ -36,7 +36,7 @@
 
 <body class="bg-violetwe">
     <?php
-        if (!isset($_SESSION['role']) && $_SESSION['role'] != 1) {
+        if (!isset($_SESSION['username'])) {
             header('Location:login.php');
         }
 
@@ -51,15 +51,7 @@
                 <h1 class="lg:text-7xl text-3xl font-bold"> <?php echo $_SESSION['username'];?></h1>
                 <p class="hidden lg:block lg:ml-1 mt-4 w-full lg:w-10/12"><?php echo $_SESSION['description'];?></p>
         </div>
-        </div>
-        <p class="lg:hidden lg:ml-1 mt-6 w-full lg:w-10/12 text-white"><?php echo $_SESSION['description'];?></p>
-        <?php
-        require_once 'class/connection.php';
-        require_once 'class/user.php';
-
-        
-        ?>
-
+    </div>
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums:</h2>
             <h3 class="text-lightgrey text-base lg:text-xl">Vos albums publiques sont visibles par tous.</h3>
@@ -67,13 +59,13 @@
                 <?php foreach ($allalbums as $album) { ?>
                     <?php if ($_SESSION['id']==$album['user_id']){ ?>
                         <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
-                        <span class="mt-2 text-gray-400"><?=$album['privacy']?></span>
+                            <span class="mt-2 text-gray-400"><?=$album['privacy']?></span>
                             <span class="font-bold m-auto mt-4 text-white text-xl"> <?= $album['name']?></span>
-                                <a href="album.php?id=<?= $album['id']?>" class="text-white m-auto font-semibold ">Voir</a>
-                                <form class="mr-0 ml-auto" method="POST" action="dashboard.php">
-                                    <input type="hidden" name="delete_album" value="<?= $album["id"]; ?>">
-                                    <input class=" text-center rounded w-4 h-4 mt-4" type="image" name="deleteAlbum" src="public/supprimer.png">
-                                </form>
+                            <a href="album.php?id=<?= $album['id']?>" class="text-white m-auto font-semibold ">Voir</a>
+                            <form class="mr-0 ml-auto" method="POST" action="dashboard.php">
+                                <input type="hidden" name="delete_album" value="<?= $album["id"]; ?>">
+                                <input class=" text-center rounded w-4 h-4 mt-4" type="image" name="deleteAlbum" src="public/supprimer.png">
+                            </form>
                         </div>
                         <br>
                     <?php } ?>
@@ -104,21 +96,21 @@
         <br>
 
         
-    <!-- <div>
+    <div>
         <h2>Autres utilisateurs </h2>
-        <php
+        <?php
         $connection = new Connection();
         $users = $connection->GetUsers();
 
         foreach ($users as $user): ?>
                 <div>
-                    <h3><= $user['username']?></h3>
+                    <h3><?= $user['username']?></h3>
                     <div>
-                    <a href="profil.php?id=<php echo $user['id']?>">Voir le compte</a>
+                    <a href="profil.php?id=<?php echo $user['id']?>">Voir le compte</a>
                     </div>
                 </div>
-        <php endforeach; ?>
-    </div> -->
+        <?php endforeach; ?>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>

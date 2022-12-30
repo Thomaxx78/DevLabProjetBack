@@ -16,14 +16,17 @@ function popularMovies() {
 
 popularMovies();
 
-let finderbouton = document.getElementById("finderButton")
 let inputGetCategory = document.getElementById("inputGetCategory")
 
 let span = document.createElement('span');
 span.innerHTML = "Ne pas trier";
 span.value =  "No";
 inputGetCategory.appendChild(span);
-// Créer une liste déroulante avec les genres de films pour la recherche par catégorie
+span.addEventListener("click", function(){
+    document.querySelectorAll('.divParent > div').forEach(e => e.remove());
+    popularMovies();
+})
+// Créer une liste avec les genres de films pour la recherche par catégorie
 axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
 .then((response) => {
     let genres = response.data.genres;
@@ -31,24 +34,24 @@ axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff
         let span = document.createElement('span');
         span.innerHTML = genre.name;
         span.value =  genre.name;
+        span.classList = "cursor-pointer"
         inputGetCategory.appendChild(span);
-    })
-})
-
-// Récupérer l'id du genre de film sélectionné
-finderbouton.addEventListener("click", function(){
-    axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
-        .then((response) => {
-            let genres = response.data.genres;
-            genres.forEach(genre => {
-                if (genre.name == inputGetCategory.value) {
-                    moviesByCategory(genre.id)
-                } else{
-                    console.log("Genre not found");
-                }
-                })
+        // Récupérer l'id du genre de film sélectionné
+        span.addEventListener("click", function(){
+                axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
+                    .then((response) => {
+                        let genres = response.data.genres;
+                        genres.forEach(genre => {
+                            if (genre.name == span.innerHTML) {
+                                moviesByCategory(genre.id)
+                            } else{
+                                console.log("Genre not found");
+                            }
+                            })
+                    })
+            })
         })
-})
+    })
 
 // Récupérer les films par catégorie les plus tendances de la semaine. Propose au moins 24 films dans la limite de 50 pages parcourues
 function moviesByCategory(genreId) {
@@ -155,4 +158,25 @@ function moviesByPopularity(option, how){
         document.querySelector('.divParent').appendChild(allMoviesDictionary[allMoviesDictionaryMark[mark]]);
     })
 }
+
+// Chercher un film avec la barre de recherche
+let search = document.querySelector("#searchBar");
+search.addEventListener('keyup', function(){
+    let searchValue = search.value;
+    if(searchValue.length > 2){
+        axios.get('https://api.themoviedb.org/3/search/movie?api_key=e5be04ec7de9aff432b14905a60c0bb8&page=1&query=' + searchValue)
+        .then((response) => {
+            let movies = response.data.results;
+            document.querySelectorAll('.divParent > div').forEach(e => e.remove());
+            movies.forEach(movie => {
+                let parent = document.querySelector('.divParent');
+                let film = document.createElement('div');
+                showMovie(parent, film, movie)
+            })
+        })
+    } else{
+        document.querySelectorAll('.divParent > div').forEach(e => e.remove());
+        popularMovies();
+    }
+})
 

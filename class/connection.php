@@ -7,7 +7,7 @@ class Connection
     public function __construct()
     {
         // $this->pdo = new PDO('mysql:dbname=delimovie; host=127.0.0.1', 'root', 'root');
-        $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', 'root');
+        $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', '');
     }
 
     public function insert(User $user): bool
@@ -23,7 +23,7 @@ class Connection
             'username' => $user->username,
             'description' => $user->description,
             'age' => $user->age,
-            'logo' => $user->logo,
+            'logo' => $user->logo
         ]);
     }
 
@@ -138,12 +138,11 @@ class Connection
         ]);
         $id_film = $statement->fetchAll();
 
-        // return $id_film;
 
-        $date = [];
+        $data = [];
         foreach($id_film as $id){
-            $querry = 'SELECT * FROM film WHERE id = :id';
-            $statement = $this->pdo->prepare($querry);
+            $query = 'SELECT * FROM film WHERE id = :id';
+            $statement = $this->pdo->prepare($query);
             $statement->execute([
                 'id' => $id["film_id"],
             ]);
@@ -151,4 +150,68 @@ class Connection
         }
         return $data;   
     }
+
+    public function likeAlbum($album_id, $user_id){
+        $query = 'SELECT * FROM likes_album WHERE album_id = :album_id AND user_id = :user_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'album_id' => $album_id,
+            'user_id' => $user_id,
+        ]);
+        $data = $statement->fetchAll();
+        if($data){
+            $query = 'DELETE FROM likes_album WHERE album_id = :album_id AND user_id = :user_id';
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                'album_id' => $album_id,
+                'user_id' => $user_id,
+            ]);
+        }else{
+            $query = 'INSERT INTO likes_album (album_id, user_id)
+                VALUES (:album_id, :user_id)';
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                'album_id' => $album_id,
+                'user_id' => $user_id,
+            ]);
+        }
+    }
+
+    public function countLikes($album_id){
+        $query = 'SELECT COUNT(*) FROM likes_album WHERE album_id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $album_id,
+        ]);
+        return $statement->fetchAll()[0][0];
+    }
+
+    public function shareAlbum($album_id, $user_id, $owner_id){
+        $query = 'INSERT INTO album_share (id_album, id_user, id_owner)
+                VALUES (:album_id, :user_id, :owner_id)';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'album_id' => $album_id,
+            'user_id' => $user_id,
+            'owner_id' => $owner_id,
+        ]);
+    }
+
+    public function getSharedAlbums($user_id){
+        $query = 'SELECT * FROM album_share WHERE id_user = :user_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'user_id' => $user_id,
+        ]);
+        $data = $statement->fetchAll();
+
+        $query = 'SELECT * FROM album WHERE id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $data[0]['id_album'],
+        ]);
+        $data = $statement->fetchAll();
+        return $data;
+    }
 }
+

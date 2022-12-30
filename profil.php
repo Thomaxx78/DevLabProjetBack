@@ -16,7 +16,7 @@
 <?php require 'require/head.php';?>
 <body>
     <?php
-        if (!isset($_SESSION['role']) && $_SESSION['role'] != 1) {
+        if (!isset($_SESSION['username'])) {
             header('Location:login.php');
         }
         
@@ -47,10 +47,41 @@
 				<?php foreach ($albums as $album):
                     if($album['privacy'] == "public"):?>
                         <p><?=$album['name']?></p>
-                    <!-- <a href="album.php?id=<?=($album['id'])?>"></a> -->
+                        <a href="album.php?id=<?=($album['id'])?>">Voir l'album</a>
 				<?php  endif; endforeach; ?>
             </div>
         </div>
+        <div>
+            <h2>Ses albums partagés</h2>
+            <div>
+                <?php 
+                $albumsShare = $connection->getSharedAlbums($userId);
+				foreach ($albumsShare as $albumShare){
+                    if($album['privacy'] == "public"){?>
+                        <p><?=$albumShare['name']?></p>
+                        <a href="album.php?id=<?=($albumShare['id'])?>">Voir l'album</a>
+				<?php }}?>
+            </div>
+        </div>
+        <div>
+            <h2>Partager un album </h2>
+            <form method="POST">
+                <select name="shareAlbum" id="shareAlbum">
+                    <?php 
+                    $myAlbums = $connection->getAlbumFromID($_SESSION['id']);
+                    foreach ($myAlbums as $myAlbum):?>
+                        <option value="<?=$myAlbum['id']?>"><?=$myAlbum['name']?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="submit">Partager l'album</button>
+            </form>
+            <?php
+                if(isset($_POST['shareAlbum'])){
+                    $connection->shareAlbum($_POST['shareAlbum'], $userId, $_SESSION['id']);
+                }
+            ?>  
+        </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
