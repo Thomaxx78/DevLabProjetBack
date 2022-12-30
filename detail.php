@@ -6,7 +6,7 @@
     require 'require/head.php';
 ?>
 
-<body>
+<body class="">
     <header class="z-40 fixed w-full bg-darkgrey mt-0 mb-auto py-2 top-0">
         <?php require 'require/nav.php' ?>
     </header>

@@ -43,7 +43,7 @@
         require_once 'require/nav.php';
     ?>
 
-    <div class="lg:mx-24 bg-darkgrey p-8 mt-8 rounded-lg w-10/12 m-auto">
+    <div class="lg:mx-24 bg-darkgrey p-8 mt-8 rounded-lg lg:w-auto w-10/12 m-auto">
         <div class="flex  lg:mt-8 items-center">
             <img class="lg:w-64 lg:h-64 w-32 h-32 lg:ml-8 object-cover rounded-full shadow-lg" src="images/avatars/<?php echo $_SESSION['logo'];?>" alt="">
             <div class="ml-4 text-white">
@@ -82,7 +82,7 @@
         </div>
     
 
-        <div class="ml-0 lg:ml-8 mt-16">
+        <div class="ml-0 lg:ml-8 mt-4 lg:mt-16">
             <h1 class="text-white text-2xl lg:text-3xl font-bold">Créer un album:</h1>
             <form method="POST" class="mt-8 flex flex-col py-4 px-4 pb-4 rounded-lg border border-white lg:w-4/12">
                 <div class="">
@@ -97,7 +97,7 @@
                         <option value="private">Privé</option>
                     </select>
                 </div>
-                <button type="submit" name="addAlbum" class="text-white mt-8 border-2 border-white rounded-lg w-4/12 m-auto">Enregistrer</button>
+                <button type="submit" name="addAlbum" class="text-white mt-8 border-2 border-white rounded-lg w-6/12 lg:w-4/12 m-auto">Enregistrer</button>
             </form>
         </div>
         </div>

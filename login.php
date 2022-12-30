@@ -5,16 +5,27 @@ session_start();
 <?php require 'require/head.php';?>
 <?php require 'require/nav.php';?>
 
-<body>
-    <h1>Connexion</h1>
-    <form method="POST">
-        <label for="email">Adresse Mail</label>
-        <input type="text" name="email" placeholder="Entrer votre adresse mail">
-        <label for="password">Mot de passe</label>
-        <input type="password" name="password" placeholder="Entrer votre mot de passe">
-        <button type="submit" name="login">Submit</button>
-    </form>
-    <p>Pas encore membre ? Inscrivez vous <a href="signin.php"> ici</a>.</p>
+<body class="bg-violetwe">
+    <div class="bg-darkgrey flex flex-col lg:w-3/12 ml-auto mr-auto text-center rounded-lg p-4 border-8 border-white">
+    <h1 class="text-2xl text-white font-semibol">Se connecter</h1>
+        <form method="POST" class="flex flex-col">
+            <label for="email" class="text-violetwe">Adresse Mail</label>
+            <input type="text" name="email" placeholder="Entrer votre adresse mail">
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" placeholder="Entrer votre mot de passe">
+            <button type="submit" name="login">Submit</button>
+        </form>
+    <p>Pas encore membre ? <a href="signin.php" class="text-violetwe">Inscrivez vous.</a></p>
+    </div>
+
+    <div class="mt-16 w-3/12 h-auto bg-white ml-auto mr-auto text-center rounded-lg p-4 border-8 border-darkgrey">
+    <p class="text-2xl text-darkgrey font-semibold">Se connecter</p>
+    <form class="mt-8">
+        <input type="email" name="email" placeholder="E-mail"><br>
+        <input type="password" name="password1" placeholder="Password"><br>
+        <input class="bg-darkgrey text-darkgrey mt-4 px-2 rounded-lg" type="submit" value="connexion" name="connect">
+</form>
+</div>
 
     <?php 
     require_once 'class/connection.php';
