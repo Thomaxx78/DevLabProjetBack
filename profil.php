@@ -47,7 +47,7 @@
 				<?php foreach ($albums as $album):
                     if($album['privacy'] == "public"):?>
                         <p><?=$album['name']?></p>
-                    <!-- <a href="album.php?id=<?=($album['id'])?>"></a> -->
+                        <a href="album.php?id=<?=($album['id'])?>">Voir l'album</a>
 				<?php  endif; endforeach; ?>
             </div>
         </div>

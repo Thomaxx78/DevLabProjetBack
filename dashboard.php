@@ -99,21 +99,21 @@
             <?php } ?>
         </div>
     </div>
-    <!-- <div>
+    <div>
         <h2>Autres utilisateurs </h2>
-        <php
+        <?php
         $connection = new Connection();
         $users = $connection->GetUsers();
 
         foreach ($users as $user): ?>
                 <div>
-                    <h3><= $user['username']?></h3>
+                    <h3><?= $user['username']?></h3>
                     <div>
-                    <a href="profil.php?id=<php echo $user['id']?>">Voir le compte</a>
+                    <a href="profil.php?id=<?php echo $user['id']?>">Voir le compte</a>
                     </div>
                 </div>
-        <php endforeach; ?>
-    </div> -->
+        <?php endforeach; ?>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>

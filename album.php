@@ -22,28 +22,32 @@
             $album = $connection->getAlbum($_GET['id'])[0];
             // var_dump($album);
             if($album == null){
-                echo '<h1>Cet album n\'existe pas</h1>';
+                header ('Location:index.php');
             }
 
             $owner = $connection->GetSingleUser($album['user_id'])[0];
         ?>
-        <div>
-            <div class="flex flex-row gap-4">
-                <div class="flex flex-col gap-4">
-                    <h2>Informations</h2>
-                    <div>
-                        <h3>Nom de l'album</h3>
-                        <p><?php echo $album['name'];?></p>
-                    </div>
-                    <div>
-                        <h3>Créateur</h3>
-                        <p><?php echo $owner["username"]?></p>
-                    </div>
-                    <div>
-                        <h3>Visibilité</h3>
-                        <p><?php echo $album['privacy'];?></p>
-                    </div>
-                </div>
+        <div class="flex flex-col gap-4">
+            <h2>Informations</h2>
+            <div>
+                <h3>Nom de l'album</h3>
+                <p><?php echo $album['name'];?></p>
+            </div>
+            <div>
+                <h3>Créateur</h3>
+                <p><?php echo $owner["username"]?></p>
+            </div>
+            <div>
+                <h3>Visibilité</h3>
+                <p><?php echo $album['privacy'];?></p>
+            </div>
+            <div>
+                <h3>Nombre de likes</h3>
+                <p><?php echo $album['likes'];?></p>
+                <form method="POST">
+                    <input type="hidden" name="like_album" id="like_album" value="<?= $album['id'];?>">
+                    <button type="submit">Liker l'album</button>
+                </form>
             </div>
         </div>
         <div id="divParentAlbum" class="flex flex-row gap-20">
@@ -59,6 +63,14 @@
                 }
             ?>
         </div>
+
+        <?php
+            if(isset($_POST['like_album'])){
+                $connection->likeAlbum($_POST['like_album']);
+                header("Refresh:1");
+            }
+        ?>
+
         <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
         <script src="js/album.js"></script>
         <script>

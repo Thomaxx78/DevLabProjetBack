@@ -140,7 +140,7 @@ class Connection
 
         // return $id_film;
 
-        $date = [];
+        $data = [];
         foreach($id_film as $id){
             $querry = 'SELECT * FROM film WHERE id = :id';
             $statement = $this->pdo->prepare($querry);
@@ -150,5 +150,13 @@ class Connection
             $data[] = $statement->fetchAll();
         }
         return $data;   
+    }
+
+    public function likeAlbum($album){
+        $query = 'UPDATE album SET likes = likes + 1 WHERE id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $album,
+        ]);
     }
 }
