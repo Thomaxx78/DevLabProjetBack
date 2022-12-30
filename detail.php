@@ -1,21 +1,18 @@
 <?php
+    session_start();
+
     require_once 'class/connection.php';
     require_once 'class/album.php';
+    require 'require/head.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
-</head>
 <body>
+    <header class="z-40 fixed w-full bg-darkgrey mt-0 mb-auto py-2 top-0">
+        <?php require 'require/nav.php' ?>
+    </header>
     <main>
-        <div>
-            <h2>Ajouter à un album</h2>
+        <div class="flex ml-16 mt-36 gap-4 items-center">
+            <h2 class="font-semibold ">Ajouter le film à un de vos albums:</h2>
             <form method="POST">
                 <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
                 <select name="albumChoice" id="albumChoice">
@@ -28,7 +25,7 @@
                         }
                     ?>
                 </select>
-                <input type="submit" value="Ajouter">
+                <input class="border border-black rounded-lg py-0.5 px-1.5 ml-2" type="submit" value="Ajouter">
             </form>
             <?php
 

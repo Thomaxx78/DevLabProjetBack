@@ -24,15 +24,21 @@ function movieDetails(id) {
                 title = movie.title
             }
             film.innerHTML = `
-                <div>
-                    <h1>${title}</h1>
-                    <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
-                    <p>${movie.overview}</p>
-                    <p>Release date: ${movie.release_date}</p>
-                    <p>Vote average: ${movie.vote_average}</p>
-                    <p>Vote count: ${movie.vote_count}</p>
-                    <p>Popularity: ${movie.popularity}</p>
-                    <p>Original language: ${movie.original_language}</p>
+                <div class="flex m-8 lg:flex-row lg:mx-16 lg:my-4 rounded-lg shadow-lg border-2 ">
+                    <img class="h-96 rounded-l-lg" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
+                    <div class="flex flex-col m-8 gap-2">
+                        <h1 class='text-xl font-bold'>${title}</h1>
+                        <span><span class="font-semibold">Release date:</span> ${movie.release_date}</span>
+                        <span><span class="font-semibold">Vote average:</span> ${movie.vote_average}</span>
+                        <span><span class="font-semibold">Vote count:</span> ${movie.vote_count}</span>
+                        <span><span class="font-semibold">Popularity:</span> ${movie.popularity}</span>
+                        <span><span class="font-semibold">Original language:</span> ${movie.original_language}</span>
+                        <p class="mt-4"><p class="font-semibold">The description:<br></p>${movie.overview}</p>
+                    </div>
+                </div>
+                
+                <div class="flex ml-16 mt-4 gap-4">
+                    <a href="index.php" class="rounded-lg border border-black px-3 py-1">Revenir au menu</a>
                 </div>`
             parent.appendChild(film);
         })

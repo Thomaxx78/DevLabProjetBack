@@ -9,10 +9,10 @@
     </header>
     <div class="hidden lg:flex"> <!-- Version Ordinateur -->
         <div class="hidden lg:grid h-full fixed bg-semidarkgrey lg:w-96 lg:ml-0 lg:mr-auto lg:pt-28 bottom-0 lg:grid-rows-[10%_20%_45%]">
-            <h2 class="text-white text-3xl text-center font-semibold mx-auto row-span-1 mt-4">Découvrir:</h2>
+            <h2 class="text-white text-3xl text-center font-semibold mx-auto row-span-1 mt-6 2xl:text-4xl">Découvrir:</h2>
             <div class="grid-span-2">
-                <h3 class="text-2xl text-white ml-4 mt-">Trier par</h3>
-                <div id="triMovies" class="grid grid-cols-2 ml-8 mt-2 text-lightgrey">
+                <h3 class="text-2xl text-white ml-4 2xl:text-3xl 2xl:mt-4">Trier par:</h3>
+                <div id="triMovies" class="grid grid-cols-2 ml-8 mt-2 text-lightgrey 2xl:text-xl 2xl:gap-2">
                     <span class="cursor-pointer">Ne pas trier</span>
                     <span class="cursor-pointer">Nom</span>
                     <span class="cursor-pointer">Note décroissante</span>
@@ -21,12 +21,12 @@
                 </div>
             </div>
             <div class="w-96 grid-span-3">
-                <h3 class="text-2xl text-white ml-8 mt-4">Catégorie:</h3>
-                <div class="flex flex-row flex-wrap gap-4 w-full" name="inputGetCategory" id="inputGetCategory"></div>
+                <h3 class="text-2xl text-white ml-4 mt-4 2xl:text-3xl 2xl:mt-8">Catégorie:</h3>
+                <div class="grid grid-cols-2 w-full ml-8 mt-2 text-lightgrey xl:gap-1 2xl:text-xl 2xl:gap-2" name="inputGetCategory" id="inputGetCategory"></div>
             </div>
         </div>
     </div>
-    <div class="lg:hidden h-32 bg-semidarkgrey mt-28 pt-4">
+    <div class="lg:hidden h-32 lg:bg-semidarkgrey mt-28 pt-4">
         <h3 class="text-2xl text-white">Trier Version Téléphone</h3>
     </div>
     <div class="divParent flex flex-wrap justify-center gap-8 ml-96 mt-40"></div>
