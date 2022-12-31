@@ -23,7 +23,7 @@ class Connection
             'username' => $user->username,
             'description' => $user->description,
             'age' => $user->age,
-            'logo' => $user->logo,
+            'logo' => $user->logo
         ]);
     }
 
@@ -195,6 +195,84 @@ class Connection
             'id' => $album_id,
         ]);
         return $statement->fetchAll()[0][0];
+    }
+
+    public function shareAlbum($album_id, $user_id, $owner_id){
+        $query = 'INSERT INTO album_share (id_album, id_user, id_owner)
+                VALUES (:album_id, :user_id, :owner_id)';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'album_id' => $album_id,
+            'user_id' => $user_id,
+            'owner_id' => $owner_id,
+        ]);
+    }
+
+    public function getSharedAlbums($user_id){
+        $query = 'SELECT * FROM album_share WHERE id_user = :user_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'user_id' => $user_id,
+        ]);
+        $data = $statement->fetchAll();
+        if($data){
+            $query = 'SELECT * FROM album WHERE id = :id';
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                'id' => $data[0]['id_album'],
+            ]);
+            return $statement->fetchAll();
+        } else {
+            return [];
+        }
+    }
+
+    public function wantToShare($album_id, $user_id){
+        $query = 'SELECT is_accepted FROM album_share WHERE id_album = :album_id AND id_owner = :user_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'album_id' => $album_id,
+            'user_id' => $user_id,
+        ]);
+        return $statement->fetchAll()[0][0];
+    }
+
+    public function getNotificationFromID($user_id){
+        $query = 'SELECT * FROM album_share WHERE id_user = :user_id AND is_accepted = 0';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'user_id' => $user_id,
+        ]);
+        $data = $statement->fetchAll();
+        if($data){
+            foreach($data as $key => $value){
+                $query = 'SELECT * FROM album WHERE id = :id';
+                $statement = $this->pdo->prepare($query);
+                $statement->execute([
+                    'id' => $value['id_album'],
+                ]);
+                $data[$key]['album'] = $statement->fetchAll();
+            }
+            return $data;
+        } else {
+            return [];
+        }
+    }
+
+    public function acceptShare($id){
+        $query = 'UPDATE album_share SET is_accepted = 1 WHERE id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $id,
+        ]);
+    }
+
+    public function refuseShare($id){
+        $query = 'DELETE FROM album_share WHERE id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $id,
+        ]);
     }
 }
 

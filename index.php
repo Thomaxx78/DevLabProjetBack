@@ -22,7 +22,7 @@
             </div>
             <div class="w-96 grid-span-3">
                 <h3 class="text-2xl text-white ml-4 mt-4 2xl:text-3xl 2xl:mt-8">Catégorie:</h3>
-                <div class="grid grid-cols-2 w-full ml-8 mt-2 text-lightgrey xl:gap-1 2xl:text-xl 2xl:gap-2" name="inputGetCategory" id="inputGetCategory"></div>
+                <div class="grid grid-cols-2 w-full ml-8 mt-2 text-lightgrey xl:gap-1 2xl:text-xl 2xl:gap-2" id="inputGetCategory"></div>
             </div>
         </div>
     </div>

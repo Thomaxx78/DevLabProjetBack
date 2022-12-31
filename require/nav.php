@@ -8,8 +8,8 @@
 				</svg>
 			</button>
 		</div>
-        <input type="text" class="hidden lg:block lg:w-2/12 lg:h-8 lg:rounded-lg lg:bg-white lg:p-2 ml-40 mr-auto" placeholder="Rechercher votre film">
-		<ul class="hidden  lg:flex lg:items-center ">
+        <input type="text" id="searchBar" class="hidden lg:block lg:w-2/12 lg:h-8 lg:rounded-lg lg:bg-white lg:p-2 ml-40 mr-auto" placeholder="Rechercher votre film">
+		<ul class="hidden  lg:flex ">
             <?php 
             if (isset($_SESSION['username'])) { ?>
 			<li> <a href="users.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Utilisateurs</a></li>

@@ -2,13 +2,25 @@
     session_start();
     require_once 'class/connection.php';
     require_once 'class/album.php';
+    $connection = new Connection();
 
-    if (!isset($_SESSION['role']) && $_SESSION['role'] != 1) {
+    if (!isset($_SESSION['username'])) {
         header('Location:login.php');
     } 
     if(!isset($_GET['id'])){
         header('Location:index.php');
+    } 
+
+    $privacity = $connection->getAlbum($_GET['id'])[0]['privacy'];
+
+    if($privacity == "private"){
+        $album = $connection->getAlbum($_GET['id'])[0];
+        $owner = $connection->GetSingleUser($album['user_id'])[0];
+        if($owner['id'] != $_SESSION['id']){
+            header('Location:index.php');
+        }
     }
+
 
     require 'require/head.php';
 ?>
@@ -18,7 +30,6 @@
     </header>
     <main>
         <?php
-            $connection = new Connection();
             $album = $connection->getAlbum($_GET['id'])[0];
             // var_dump($album);
             if($album == null){

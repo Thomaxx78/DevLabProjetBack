@@ -16,7 +16,7 @@
 <?php require 'require/head.php';?>
 <body>
     <?php
-        if (!isset($_SESSION['role']) && $_SESSION['role'] != 1) {
+        if (!isset($_SESSION['username'])) {
             header('Location:login.php');
         }
         
@@ -52,6 +52,38 @@
 				<?php  endif; endforeach; ?>
             </div>
         </div>
+        <div>
+            <h2>Ses albums partagés</h2>
+            <div>
+                <?php 
+                $albumsShare = $connection->getSharedAlbums($userId);
+				foreach ($albumsShare as $albumShare){
+                    $share = $connection->wantToShare($albumShare['id'], $albumShare['user_id']);
+                    if($albumShare['privacy'] == "public" and $share==1){?>
+                        <p><?=$albumShare['name']?></p>
+                        <a href="album.php?id=<?=($albumShare['id'])?>">Voir l'album</a>
+				<?php }}?>
+            </div>
+        </div>
+        <div>
+            <h2>Partager un album </h2>
+            <form method="POST">
+                <select name="shareAlbum" id="shareAlbum">
+                    <?php 
+                    $myAlbums = $connection->getAlbumFromID($_SESSION['id']);
+                    foreach ($myAlbums as $myAlbum):?>
+                        <option value="<?=$myAlbum['id']?>"><?=$myAlbum['name']?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="submit">Partager l'album</button>
+            </form>
+            <?php
+                if(isset($_POST['shareAlbum'])){
+                    $connection->shareAlbum($_POST['shareAlbum'], $userId, $_SESSION['id']);
+                }
+            ?>  
+        </div>
+
 
         <div>
             <h2> Ses albums likés </h2>

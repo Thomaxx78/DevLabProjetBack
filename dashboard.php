@@ -2,9 +2,9 @@
     session_start();
     require_once 'class/connection.php';
     require_once 'class/album.php';
+    $connection = new Connection();
 
     if(isset($_POST["deleteAlbum"])){
-        $connection = new Connection();
         $delete = $connection->deleteAlbum($_POST["delete_album"]);
         if($delete){
             header('Location: dashboard.php');
@@ -13,7 +13,6 @@
         }
     }
 
-    $connection = new Connection();
     $allalbums = $connection->getAlbumFromID($_SESSION['id']);
     $allalbumslikes = $connection->getAlbumLikeFromID($_SESSION['id']);
 
@@ -25,7 +24,6 @@
             $_SESSION['likes'],
         );
 
-        $connection = new Connection();
         $ajout = $connection->insertAlbum($album);
         if ($ajout) {
             echo 'Album Crée';
@@ -33,6 +31,15 @@
         } else {
             echo 'Echec 🥲';
         }
+    }
+
+    if(isset($_POST["accept"]) || isset($_POST["refuse"])){
+        if(isset($_POST["accept"])){
+            $accept = $connection->acceptShare($_POST["accept"]);
+        } else{
+            $refuse = $connection->refuseShare($_POST["refuse"]);
+        }
+        // header('Location: dashboard.php'); 
     }
 ?>
 <?php require 'require/head.php';?>
@@ -49,12 +56,37 @@
     <div class="lg:mx-24 bg-darkgrey p-8 mt-8 rounded-lg w-10/12 m-auto">
         <div class="flex  lg:mt-8 items-center">
             <img class="lg:w-64 lg:h-64 w-32 h-32 lg:ml-8 object-cover rounded-full shadow-lg" src="images/avatars/<?php echo $_SESSION['logo'];?>" alt="">
-            <div class="ml-4 text-white">
-                <h1 class="hidden lg:block text-xl font-semibold ml-1">Profil</h1>
-                <h1 class="lg:text-7xl text-3xl font-bold"> <?php echo $_SESSION['username'];?></h1>
-                <p class="hidden lg:block lg:ml-1 mt-4 w-full lg:w-10/12"><?php echo $_SESSION['description'];?></p>
+            <div class="flex flex-row justify-between">
+                <div class="ml-4 text-white">
+                    <h1 class="hidden lg:block text-xl font-semibold ml-1">Profil</h1>
+                    <h1 class="lg:text-7xl text-3xl font-bold"> <?php echo $_SESSION['username'];?></h1>
+                    <p class="hidden lg:block lg:ml-1 mt-4 w-full lg:w-10/12"><?php echo $_SESSION['description'];?></p>
+                </div>
+                <div class="text-white w-6/12">
+                    <h3 class="block text-xl font-semibold">Mes notifications</h3>
+                    <div class="flex flex-col gap-4 mt-8">
+                        <?php
+                            $allnotifications = $connection->getNotificationFromID($_SESSION['id']);
+                            foreach ($allnotifications as $notification) {
+                                // var_dump($notification["album"][0]["name"]);
+                                $userAlbum = $connection->GetSingleUser($notification['id_user']);
+                                ?>
+                                <span><?= $userAlbum[0]["username"];?> souhaite partager avec toi un album intitulé "<?= $notification["album"][0]["name"];?>"</span>
+                                <div class="flex flex-row gap-8">
+                                    <form method="POST">
+                                        <input type="hidden" name="accept" value="<?= $notification["id"]; ?>">
+                                        <button type="submit">Accepter</button>
+                                    </form>
+                                    <form method="POST">
+                                        <input type="hidden" name="refuse" value="<?= $notification["id"]; ?>">
+                                        <button type="submit">Décliner</button>
+                                    </form>
+                                </div>
+                            <?php } ?>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums:</h2>
             <h3 class="text-lightgrey text-base lg:text-xl">Vos albums publiques sont visibles par tous.</h3>
@@ -112,6 +144,5 @@
         </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
-    <script type="module" src="js/main.js"></script>
 </body>
 </html>
