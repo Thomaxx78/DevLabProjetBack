@@ -15,11 +15,14 @@
 
     $connection = new Connection();
     $allalbums = $connection->getAlbumFromID($_SESSION['id']);
+    $allalbumslikes = $connection->getAlbumLikeFromID($_SESSION['id']);
+
     if (isset($_POST["addAlbum"])) {
         $album = new Album(
             $_POST['name'],
             $_POST['privacy'],
             $_SESSION['id'],
+            $_SESSION['likes'],
         );
 
         $connection = new Connection();
@@ -36,8 +39,8 @@
 
 <body class="bg-violetwe">
     <?php
-        if (!isset($_SESSION['role']) && $_SESSION['role'] != 1) {
-            header('Location:login.php');
+        if (!isset($_SESSION['username'])) {
+            header('Location: login.php');
         }
 
         require_once 'require/nav.php';
@@ -72,6 +75,21 @@
                 <?php } ?>
             </div>
         </div>
+
+        <div class="lg:ml-8 mt-16">
+            <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums likés:</h2>
+            <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
+                <?php foreach ($allalbumslikes as $albumlike) { ?>
+                    <?php if ($_SESSION['id']==$albumlike['user_id']){ ?>
+                        <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
+                            <span class="font-bold m-auto mt-4 text-white text-xl"> <?= $albumlike['name']?></span>
+                            <a href="album.php?id=<?= $albumlike['album_id']?>" class="text-white m-auto font-semibold ">Voir</a>
+                        </div>
+                        <br>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+        </div>
     
 
         <div class="ml-0 lg:ml-8 mt-16">
@@ -92,25 +110,6 @@
                 <button type="submit" name="addAlbum" class="text-white mt-8 border-2 border-white rounded-lg w-4/12 m-auto">Enregistrer</button>
             </form>
         </div>
-        </div>
-        <br>
-
-        
-    <div>
-        <h2>Autres utilisateurs </h2>
-        <?php
-        $connection = new Connection();
-        $users = $connection->GetUsers();
-
-        foreach ($users as $user): ?>
-                <div>
-                    <h3><?= $user['username']?></h3>
-                    <div>
-                    <a href="profil.php?id=<?php echo $user['id']?>">Voir le compte</a>
-                    </div>
-                </div>
-        <?php endforeach; ?>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>

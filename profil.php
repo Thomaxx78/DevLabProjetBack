@@ -40,6 +40,7 @@
         require_once 'class/user.php';
         $connection = new Connection();
         $albums = $connection->getAlbumFromID($userId);
+        $allalbumslikes = $connection->getAlbumLikeFromID($_SESSION['id']);
     ?>
         <div>
             <h2>Ses albums</h2>
@@ -49,6 +50,21 @@
                         <p><?=$album['name']?></p>
                         <a href="album.php?id=<?=($album['id'])?>">Voir l'album</a>
 				<?php  endif; endforeach; ?>
+            </div>
+        </div>
+
+        <div>
+            <h2> Ses albums likés </h2>
+            <div>
+                <?php foreach ($allalbumslikes as $albumlike) { ?>
+                    <?php if ($_SESSION['id']==$albumlike['user_id']){ ?>
+                        <div>
+                            <span> <?= $albumlike['name']?></span>
+                            <a href="album.php?id=<?= $albumlike['album_id']?>">Voir</a>
+                        </div>
+                        <br>
+                    <?php } ?>
+                <?php } ?>
             </div>
         </div>
 

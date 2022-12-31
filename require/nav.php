@@ -9,11 +9,12 @@
 			</button>
 		</div>
         <input type="text" class="hidden lg:block lg:w-2/12 lg:h-8 lg:rounded-lg lg:bg-white lg:p-2 ml-40 mr-auto" placeholder="Rechercher votre film">
-		<ul class="hidden  lg:flex ">
+		<ul class="hidden  lg:flex lg:items-center ">
             <?php 
             if (isset($_SESSION['username'])) { ?>
+			<li> <a href="users.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Utilisateurs</a></li>
             <li> <a href="logout.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Déconnection</a></li>
-			<li> <a href="dashboard.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Profil</a></li>
+			<li> <a href="dashboard.php" class="hidden lg:block"><img class="lg:w-14 lg:h-14 object-cover rounded-full shadow-lg" src="images/avatars/<?php echo $_SESSION['logo'];?>" alt=""></a></li>
             <?php } 
             else { ?>
 			<li> <a href="signin.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white">S'inscrire</a></li>
@@ -36,6 +37,9 @@
 				<ul>
 					<li class="mb-1">
 						<a href="index.php" class="block p-4 text-2xl font-bold text-white">Accueil</a>
+					</li>
+					<li class="mb-1">
+						<a href="users.php" class="block p-4 text-2xl font-bold text-white">Utilisateurs</a>
 					</li>
 				</ul>
 			</div>

@@ -7,7 +7,7 @@ class Connection
     public function __construct()
     {
         // $this->pdo = new PDO('mysql:dbname=delimovie; host=127.0.0.1', 'root', 'root');
-        $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', '');
+        $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', 'root');
     }
 
     public function insert(User $user): bool
@@ -81,6 +81,17 @@ class Connection
     public function getAlbumFromID($id)
     {
         $query =  'SELECT * from album WHERE user_id = '.$id;
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
+
+        $data = $statement->fetchAll();
+        return $data;
+    }
+
+
+    public function getAlbumLikeFromID($id)
+    {
+        $query =  'SELECT * FROM album INNER JOIN likes_album ON album.id = likes_album.album_id WHERE likes_album.user_id = '.$id;
         $statement = $this->pdo->prepare($query);
         $statement->execute();
 
