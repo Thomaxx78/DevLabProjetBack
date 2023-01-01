@@ -45,10 +45,10 @@
 			</div>
 			<div class="mt-auto flex items-center mb-12">
 			<li class="mb-1">
-						<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="connexion.php">Connexion</a>
+						<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="login.php">Connexion</a>
 					</li>
 					<li class="mb-1">
-						<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="inscription.php">Inscription</a>
+						<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="signin.php">Inscription</a>
 					</li>
 			</div>
             <script src="js/burger.js"></script>

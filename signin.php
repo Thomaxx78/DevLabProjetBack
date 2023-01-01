@@ -46,7 +46,7 @@
 <body class="bg-violetwe">
     <?php require_once 'require/nav.php';?>
 
-    <div class="mt-16 h-auto bg-white rounded-lg p-4 border-8 lg:w-6/12 w-10/12 mx-auto">
+    <div class="mt-8 mb-8 lg:mt-16 h-auto bg-white rounded-lg p-4 border-8 lg:w-6/12 w-10/12 mx-auto">
         <h1 class="text-2xl text-darkgrey font-semibold text-center">S'inscrire</h1>
         <form method="POST" enctype="multipart/form-data" class="flex flex-col mt-8">
             <div class="grid lg:grid-cols-2 grid-cols-1">
@@ -85,7 +85,7 @@
                 <button type="submit" class="btn">S'inscrire</button>
             </div>
         </form>
-        <p class="text-center mt-4"> Déjà un compte ?<a href="login.php" class="text-violetwe text-center"> Connectez-vous.</a></p>
+        <p class="text-center mt-4">Déjà un compte ?<a href="login.php" class="text-violetwe text-center"> Connectez-vous.</a></p>
     </div>
 
 

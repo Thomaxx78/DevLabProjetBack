@@ -24,8 +24,8 @@ function movieDetails(id) {
                 title = movie.title
             }
             film.innerHTML = `
-                <div class="flex m-8 lg:flex-row lg:mx-16 lg:my-4 rounded-lg shadow-lg border-2 ">
-                    <img class="h-96 rounded-l-lg" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
+                <div class="flex flex-col m-8 lg:flex-row lg:mx-16 lg:my-4 rounded-lg shadow-lg border-2 mb-8">
+                    <img class="h-96 rounded-t-lg lg:rounded-r-none lg:rounded-l-lg" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
                     <div class="flex flex-col m-8 gap-2">
                         <h1 class='text-xl font-bold'>${title}</h1>
                         <span><span class="font-semibold">Release date:</span> ${movie.release_date}</span>
@@ -37,9 +37,7 @@ function movieDetails(id) {
                     </div>
                 </div>
                 
-                <div class="flex ml-16 mt-4 gap-4">
-                    <a href="index.php" class="rounded-lg border border-black px-3 py-1">Revenir au menu</a>
-                </div>`
+                <a href="index.php" class="rounded-lg border border-black px-3 py-1 ml-8 lg:ml-16 lg:mt-8">Revenir à l'accueil</a>`
             parent.appendChild(film);
         })
 }
