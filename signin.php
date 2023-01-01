@@ -77,13 +77,13 @@
                     </div>
                     <div class="shadow p-1 rounded-lg mt-2 flex flex-col mx-3">
                         <input id="file" type="file" accept="image/png, image/jpeg" name="logo" class="inputfile" data-multiple-caption="{count} files selected" multiple >
-                        <label for="file" class="custom-file-upload flex flex-col"><span>Selectioner un fichier&hellip;</span></label>
+                        <label for="file" class="custom-file-upload flex flex-col"><span class="font-semibold">Sélectionner une photo de profil&hellip;</span></label>
                     </div>
                 </div>
             </div>
-
-                <button type="submit" class="btn rounded-lg border border-black mt-4 p-1 w-4/12 lg:w-2/12 m-auto">Submit</button>
-
+            <div class="rounded-lg border border-black mt-4 p-1 w-4/12 lg:w-2/12 m-auto hover:bg-violetwe hover:text-white hover:border-violetwe text-center">
+                <button type="submit" class="btn">S'inscrire</button>
+            </div>
         </form>
         <p class="text-center mt-4"> Déjà un compte ?<a href="login.php" class="text-violetwe text-center"> Connectez-vous.</a></p>
     </div>

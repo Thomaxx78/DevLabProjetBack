@@ -45,13 +45,16 @@ if($_POST){
     <p>Pas encore membre ? <a href="signin.php" class="text-violetwe">Inscrivez vous.</a></p>
     </div> -->
 
-    <div class="mt-16 w-3/12 h-auto bg-white ml-auto mr-auto text-center rounded-lg p-4 border-8 border-darkgrey">
-    <p class="text-2xl text-darkgrey font-semibold">Se connecter</p>
-    <form method="POST" class="mt-8">
-        <input type="email" name="email" placeholder="E-mail"><br>
-        <input type="password" name="password" placeholder="Password"><br>
-        <button class="bg-darkgrey text-darkgrey mt-4 px-2 rounded-lg" type="submit" name="login">Connexion</button>
-    </form>
+    <div class="mt-16 h-auto bg-white rounded-lg p-4 border-8 lg:w-4/12 w-10/12 mx-auto">
+    <p class="text-2xl text-darkgrey font-semibold text-center">Se connecter</p>
+    <form method="POST" class="mt-8 text-center">
+        <input class="mx-auto border-b border-b-lightgrey" type="email" name="email" placeholder="E-mail"><br>
+        <input class="m-auto border-b border-b-lightgrey mt-2" type="password" name="password" placeholder="Password"><br>
+        <div class="rounded-lg border border-black mt-4 p-1 w-4/12 lg:w-4/12 m-auto hover:bg-violetwe hover:text-white hover:border-violetwe text-center">
+            <button class="" type="submit" name="login">Connexion</button>
+        </div>
+        </form>    
+        <p class="text-center mt-4">Pas encore de compte ?<a href="login.php" class="text-violetwe text-center"> Inscrivez-vous.</a></p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>
