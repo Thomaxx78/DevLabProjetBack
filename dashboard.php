@@ -19,7 +19,7 @@
     if (isset($_POST["addAlbum"])) {
         $album = new Album(
             $_POST['name'],
-            $_POST['privacy'],
+            $_POST['privacy'], 
             $_SESSION['id'],
             $_SESSION['likes'],
         );
