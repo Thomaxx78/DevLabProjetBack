@@ -6,7 +6,7 @@ class Connection
 
     public function __construct()
     {
-        // $this->pdo = new PDO('mysql:dbname=delimovie; host=127.0.0.1', 'root', 'root');
+        // $this->pdo = new PDO('mysql:dbname=backend-project; host=127.0.0.1', 'root', 'root');
         $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', '');
     }
 
@@ -263,13 +263,14 @@ class Connection
     }
 
     public function wantToShare($album_id, $user_id){
-        $query = 'SELECT is_accepted FROM album_share WHERE id_album = :album_id AND id_owner = :user_id';
+        $query = 'SELECT is_accepted FROM album_share WHERE id_album = :album_id AND id_user = :user_id';
         $statement = $this->pdo->prepare($query);
         $statement->execute([
             'album_id' => $album_id,
             'user_id' => $user_id,
         ]);
-        return $statement->fetchAll()[0][0];
+        // var_dump($statement->fetchAll()[0]);
+        return $statement->fetchAll()[0]["is_accepted"];
     }
 
     public function getNotificationFromID($user_id){
@@ -311,6 +312,17 @@ class Connection
     }
 
     public function isShared($album_id, $user_id){
+        $query = 'SELECT * FROM album_share WHERE id_album = :album_id AND id_user = :user_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'album_id' => $album_id,
+            'user_id' => $user_id,
+        ]);
+        $data = $statement->fetchAll();
+        return isset($data[0]);
+    }
+
+    public function verifyAlbumAlreadyShared($album_id, $user_id){
         $query = 'SELECT * FROM album_share WHERE id_album = :album_id AND id_user = :user_id';
         $statement = $this->pdo->prepare($query);
         $statement->execute([
