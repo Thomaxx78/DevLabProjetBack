@@ -11,6 +11,7 @@
         <?php require 'require/nav.php' ?>
     </header>
     <main>
+
         <div class="divParent flex m-8 mt-40 lg:flex-row lg:mx-16 rounded-lg shadow-lg border-2 ">
             <div class="divParentContent m-8">
                 <div class="flex gap-4 items-center">
@@ -20,7 +21,7 @@
                         <select name="albumChoice" id="albumChoice">
                             <?php 
                                 $connection = new Connection();
-                                $albums = $connection->getAlbumFromID(10);
+                                $albums = $connection->getAlbumFromID($_SESSION['id']);
                                 var_dump($albums);
                                 foreach($albums as $album){
                                     echo '<option value="' . $album['id'] . '">' . $album['name'] . '</option>';
@@ -43,6 +44,7 @@
         <div class="flex ml-16 mt-4 gap-4">
             <a href="index.php" class="rounded-lg border border-black px-3 py-1">Revenir au menu</a>
         </div>
+        
         <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
         <script type="module" src="js/takeDetails.js"></script>
     </main>
