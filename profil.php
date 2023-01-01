@@ -56,7 +56,7 @@
         </div>
         <div class="lg:ml-16 mt-8">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Albums partagés</h2>
-            <div class=">
+            <div>
                 <?php 
                 $albumsShare = $connection->getSharedAlbums($userId);
 				foreach ($albumsShare as $albumShare){
@@ -69,17 +69,17 @@
             </div>
         </div>
         <?php if($_SESSION['id'] != $userId){?>
-            <div>
-                <h2>Partager un album </h2>
+            <div class="text-white lg:ml-16">
+                <h2 class="text-white text-2xl lg:text-3xl font-bold mt-8">Partager un album</h2>
                 <form method="POST">
-                    <select name="shareAlbum" id="shareAlbum">
+                    <select class="text-white text-lg bg-darkgrey mt-8"name="shareAlbum" id="shareAlbum">
                         <?php 
                         $myAlbums = $connection->getAlbumFromID($_SESSION['id']);
                         foreach ($myAlbums as $myAlbum):?>
                             <option value="<?=$myAlbum['id']?>"><?=$myAlbum['name']?></option>
                         <?php endforeach; ?>
                     </select>
-                    <button type="submit">Partager l'album</button>
+                    <button type="submit" class="text-white border border-white p-1 rounded-lg lg:ml-4">Partager</button>
                 </form>
                 <?php
                     if(isset($_POST['shareAlbum'])){
@@ -92,16 +92,14 @@
             </div>
         <?php }?>
 
-
-
-        <div>
-            <h2> Ses albums likés </h2>
-            <div>
+        <div class="mt-8 lg:ml-16">
+            <h2 class="text-white text-2xl lg:text-3xl font-bold"> Ses albums likés </h2>
+            <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
                 <?php foreach ($allalbumslikes as $albumlike) { ?>
                     <?php if ($_SESSION['id']==$albumlike['user_id']){ ?>
-                        <div>
-                            <span> <?= $albumlike['name']?></span>
-                            <a href="album.php?id=<?= $albumlike['album_id']?>">Voir</a>
+                        <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
+                            <span class="font-bold m-auto mt-4 text-white text-xl"> <?= $albumlike['name']?></span>
+                            <a href="album.php?id=<?= $albumlike['album_id']?>" class="text-white m-auto font-semibold">Voir</a>
                         </div>
                         <br>
                     <?php } ?>
