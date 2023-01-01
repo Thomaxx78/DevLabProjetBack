@@ -4,6 +4,7 @@
     require_once 'class/connection.php';
     require_once 'class/album.php';
     require 'require/head.php';
+    $connection = new Connection();
 ?>
 
 <body class="">
@@ -21,11 +22,14 @@
                         <select name="albumChoice" id="albumChoice">
                             <?php 
                                 if(isset($_SESSION['id'])){
-                                    $connection = new Connection();
                                     $albums = $connection->getAlbumFromID($_SESSION['id']);
-                                    var_dump($albums);
                                     foreach($albums as $album){
                                         echo '<option value="' . $album['id'] . '">' . $album['name'] . '</option>';
+                                    }
+                                    $albumsShare = $connection->getAlbumShared($_SESSION['id']);
+                                    foreach($albumsShare as $albumShare){
+                                        $getAlbum = $connection->getAlbum($albumShare['id_album'])[0];
+                                        echo '<option value="' . $albumShare['id_album'] . '">' . $getAlbum['name'] . '</option>';
                                     }
                                 }
                             ?>
@@ -35,9 +39,13 @@
                     <?php
 
                         if(isset($_POST['albumChoice'])){
-                            $connection = new Connection();
                             $connection->verifyMovie($_GET['id']);
-                            $connection->addMovieToAlbum($_GET['id'], $_POST['albumChoice']);
+                            $alreadyAdd = $connection->verifyMovieAlreadyAdded($_GET['id'], $_POST['albumChoice']);
+                            if($alreadyAdd == false){
+                                $connection->addMovieToAlbum($_GET['id'], $_POST['albumChoice']);
+                            } else {
+                                echo '<p class="text-red-500">Ce film est déjà dans cet album</p>';
+                            }
                         }
                     ?>
                 </div>

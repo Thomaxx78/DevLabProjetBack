@@ -16,8 +16,17 @@
     if($privacity == "private"){
         $album = $connection->getAlbum($_GET['id'])[0];
         $owner = $connection->GetSingleUser($album['user_id'])[0];
-        if($owner['id'] != $_SESSION['id']){
+        if($owner['id'] != $_SESSION['id'] && $connection->isShared($_GET['id'], $_SESSION['id']) == false){
             header('Location:index.php');
+        }
+    }
+
+    if(isset($_POST["removeId"])){
+        $delete = $connection->removeMovieFromAlbum($_POST["removeId"], $_GET['id']);
+        if($delete){
+            header('Location: album.php?id='.$_GET['id']);
+        }else{
+            echo "Erreur dans la supression";
         }
     }
 
@@ -67,7 +76,6 @@
                 if($allMovies == null){
                     echo '<h1>Cet album est vide</h1>';
                 }
-                // var_dump($allMovies);
                 $array_movies_id = [];
                 foreach($allMovies as $movie){
                     array_push($array_movies_id, $movie[0]["film_id"]);
