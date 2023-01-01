@@ -3,7 +3,7 @@
 ?>
 <?php require 'require/head.php';?>
 <!DOCTYPE html>
-<body>
+<body class="">
     <header class="z-40 fixed w-full bg-darkgrey mt-0 mb-auto py-2 top-0">
         <?php require 'require/nav.php' ?>
     </header>
@@ -26,10 +26,10 @@
             </div>
         </div>
     </div>
-    <div class="lg:hidden h-32 lg:bg-semidarkgrey mt-28 pt-4">
-        <h3 class="text-2xl text-white">Trier Version Téléphone</h3>
+    <div class="block lg:hidden h-32 bg-semidarkgrey mt-28 pt-4">
+        <h3 class="text-2xl text-white text-center">Trier Version Téléphone</h3>
     </div>
-    <div class="divParent flex flex-wrap justify-center gap-8 ml-96 mt-40"></div>
+    <div class="divParent flex flex-col items-center lg:flex-row lg:flex-wrap lg:justify-center gap-8 lg:ml-96 lg:mt-40"></div>
     
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>

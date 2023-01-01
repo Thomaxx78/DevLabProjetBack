@@ -87,11 +87,11 @@ function showMovie(parent, film, movie){
     }
     film.innerHTML = 
     `
-    <img class="w-32" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
-    <span class="text-center mt-1">${title}</span>
-    <button class="detailsMovie text-white" value="${movie.id}">Movie Details</button>
-    <span class="hidden">${movie.vote_average}</span>
-    <span class="hidden">${movie.popularity}</span>
+        <img class="w-32" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
+        <span class="text-center mt-1">${title}</span>
+        <button class="detailsMovie text-darkgrey" value="${movie.id}">Movie Details</button>
+        <span class="hidden">${movie.vote_average}</span>
+        <span class="hidden">${movie.popularity}</span>
     `
     parent.appendChild(film);
     film.classList.add("flex", "flex-col", "items-center", "rounded", "shadow", "m-2", "p-2", "w-64", "bg-white", "text-black", "hover:bg-gray-200", "hover:text-gray-800", "transition", "duration-500", "ease-in-out", "transform", "hover:-translate-y-1", "hover:scale-110");

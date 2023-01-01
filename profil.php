@@ -97,7 +97,7 @@
             <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
                 <?php foreach ($allalbumslikes as $albumlike) { ?>
                     <?php if ($_SESSION['id']==$albumlike['user_id']){ ?>
-                        <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
+                        <div class="flex flex-col rounded-lg border border-white w-8/12 lg:w-2/12 pb-4">
                             <span class="font-bold m-auto mt-4 text-white text-xl"> <?= $albumlike['name']?></span>
                             <a href="album.php?id=<?= $albumlike['album_id']?>" class="text-white m-auto font-semibold">Voir</a>
                         </div>
