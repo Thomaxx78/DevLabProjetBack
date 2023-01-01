@@ -43,13 +43,13 @@
 <?php require_once 'require/head.php';?>
 
 
-<body>
+<body class="bg-violetwe">
     <?php require_once 'require/nav.php';?>
 
-    <div class="mt-16  h-auto bg-white ml-auto mr-auto rounded-lg p-4 border-8">
+    <div class="mt-16 h-auto bg-white rounded-lg p-4 border-8 lg:w-6/12 w-10/12 mx-auto">
         <h1 class="text-2xl text-darkgrey font-semibold text-center">S'inscrire</h1>
         <form method="POST" enctype="multipart/form-data" class="flex flex-col mt-8">
-            <div class="flex justify-center">
+            <div class="grid lg:grid-cols-2 grid-cols-1">
                 <div>
                     <h1 class="text-lg font-semibold">Vos informations:</h1>
                     <div class="shadow p-1 rounded-lg flex flex-col mx-3 mt-4">
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div>
-                <h1 class="text-lg font-semibold">Votre profil Delimovie:</h1>
+                <h1 class="text-lg font-semibold mt-4 lg:mt-0">Votre profil Delimovie:</h1>
                     <div class="shadow p-1 rounded-lg flex flex-col mx-3 mt-4">
                         <label for="username" class="font-semibold">Nom d'utilisateur:</label>
                         <input type="text" name="username" placeholder="Entrer votre nom d'utilisateur">
@@ -82,9 +82,10 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn">Submit</button>
+                <button type="submit" class="btn rounded-lg border border-black mt-4 p-1 w-4/12 lg:w-2/12 m-auto">Submit</button>
+
         </form>
-        <p class="m-auto"> Déjà un compte ?<a href="login.php" class="text-violetwe"> Connectez-vous.</a></p>
+        <p class="text-center mt-4"> Déjà un compte ?<a href="login.php" class="text-violetwe text-center"> Connectez-vous.</a></p>
     </div>
 
 

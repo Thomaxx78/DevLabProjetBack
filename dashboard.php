@@ -98,7 +98,7 @@
                                 <a href="album.php?id=<?= $album['id']?>" class="text-white m-auto font-semibold ">Voir</a>
                                 <form class="mr-0 ml-auto" method="POST" action="dashboard.php">
                                     <input type="hidden" name="delete_album" value="<?= $album["id"]; ?>">
-                                    <input class=" text-center rounded w-4 h-4 mt-4" type="image" name="deleteAlbum" src="public/supprimer.png">
+                                    <input class="text-center rounded w-4 h-4 mt-4" type="submit" name="deleteAlbum">Supprimer</input>
                                 </form>
                             </div>
                             <br>
