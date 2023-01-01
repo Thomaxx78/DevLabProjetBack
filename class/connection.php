@@ -88,11 +88,38 @@ class Connection
         return $data;
     }
 
+
+    public function getAlbumLikeFromID($id)
+    {
+        $query =  'SELECT * FROM album INNER JOIN likes_album ON album.id = likes_album.album_id WHERE likes_album.user_id = '.$id;
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
+
+        $data = $statement->fetchAll();
+        return $data;
+    }
+
     public function deleteAlbum(int $id){
         $query = 'DELETE FROM album WHERE id = :id';
         $statement = $this->pdo->prepare($query);
         $statement->execute([
             'id' => $id,
+        ]);
+        return $statement;
+    }
+
+    public function removeMovieFromAlbum($movie_id, $album_id){
+        $query = 'SELECT id FROM film WHERE film_id = :movie_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'movie_id' => $movie_id,
+        ]);
+        $data = $statement->fetchAll();
+        $query = 'DELETE FROM album_film WHERE film_id = :movie_id AND album_id = :album_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'movie_id' => $data[0]['id'],
+            'album_id' => $album_id,
         ]);
         return $statement;
     }
@@ -113,20 +140,39 @@ class Connection
         }
     }
 
-    public function addMovieToAlbum($film_id, $album_id){
-        $getId = 'SELECT * FROM film WHERE film_id = :id';
-        $statement = $this->pdo->prepare($getId);
+    public function getMovieIdFromId($id){
+        $query = 'SELECT * FROM film WHERE film_id = :id';
+        $statement = $this->pdo->prepare($query);
         $statement->execute([
-            'id' => $film_id,
+            'id' => $id,
         ]);
         $data = $statement->fetchAll();
-        $movie_id = $data[0]['id'];
+        return $data[0]['id'];
+    }
+
+    public function verifyMovieAlreadyAdded($film_id, $album_id){
+        $getId = $this->getMovieIdFromId($film_id);
+        $query = 'SELECT * FROM album_film WHERE film_id = :film_id AND album_id = :album_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'film_id' => $getId,
+            'album_id' => $album_id,
+        ]);
+        $data = $statement->fetchAll();
+        if($data){
+            return true;
+        }
+        return false;
+    }
+
+    public function addMovieToAlbum($film_id, $album_id){
+        $getId = $this->getMovieIdFromId($film_id);
         $query = 'INSERT INTO album_film (album_id, film_id)
                 VALUES (:album_id, :movie_id)';
         $statement = $this->pdo->prepare($query);
         $statement->execute([
             'album_id' => $album_id,
-            'movie_id'=> $movie_id,
+            'movie_id'=> $getId,
         ]);
     }
 
@@ -204,14 +250,84 @@ class Connection
             'user_id' => $user_id,
         ]);
         $data = $statement->fetchAll();
+        if($data){
+            $query = 'SELECT * FROM album WHERE id = :id';
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                'id' => $data[0]['id_album'],
+            ]);
+            return $statement->fetchAll();
+        } else {
+            return [];
+        }
+    }
 
-        $query = 'SELECT * FROM album WHERE id = :id';
+    public function wantToShare($album_id, $user_id){
+        $query = 'SELECT is_accepted FROM album_share WHERE id_album = :album_id AND id_owner = :user_id';
         $statement = $this->pdo->prepare($query);
         $statement->execute([
-            'id' => $data[0]['id_album'],
+            'album_id' => $album_id,
+            'user_id' => $user_id,
+        ]);
+        return $statement->fetchAll()[0][0];
+    }
+
+    public function getNotificationFromID($user_id){
+        $query = 'SELECT * FROM album_share WHERE id_user = :user_id AND is_accepted = 0';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'user_id' => $user_id,
         ]);
         $data = $statement->fetchAll();
-        return $data;
+        if($data){
+            foreach($data as $key => $value){
+                $query = 'SELECT * FROM album WHERE id = :id';
+                $statement = $this->pdo->prepare($query);
+                $statement->execute([
+                    'id' => $value['id_album'],
+                ]);
+                $data[$key]['album'] = $statement->fetchAll();
+            }
+            return $data;
+        } else {
+            return [];
+        }
+    }
+
+    public function acceptShare($id){
+        $query = 'UPDATE album_share SET is_accepted = 1 WHERE id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $id,
+        ]);
+    }
+
+    public function refuseShare($id){
+        $query = 'DELETE FROM album_share WHERE id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'id' => $id,
+        ]);
+    }
+
+    public function isShared($album_id, $user_id){
+        $query = 'SELECT * FROM album_share WHERE id_album = :album_id AND id_user = :user_id';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'album_id' => $album_id,
+            'user_id' => $user_id,
+        ]);
+        $data = $statement->fetchAll();
+        return isset($data[0]);
+    }
+
+    public function getAlbumShared($user_id){
+        $query = 'SELECT * FROM album_share WHERE id_user = :user_id AND is_accepted = 1';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'user_id' => $user_id,
+        ]);
+        return $statement->fetchAll();
     }
 }
 

@@ -1,6 +1,8 @@
 <?php
     require_once 'class/user.php';
+    require_once 'class/album.php';
     require_once 'class/connection.php';
+    $connection = new Connection();
 
     if ($_POST) {
         $user = new User(
@@ -18,16 +20,22 @@
         move_uploaded_file($tmp_img_name,$folder.$img_name);
 
         if ($user->verify()) {
-            $connection = new Connection();
-            $result = $connection->insert($user);
+            if ($connection->insert($user)) {
+                $user_id = $connection->pdo->lastInsertId();
 
-            if ($result) {
-                header('Location: login.php');
-            } else {
-                echo 'Internal error 🥲';
+                $albumV = new Album("Visionnés", "public", $user_id);
+                $albumE = new Album("Liste Envies ", "public", $user_id);
+                if ($albumV->verify() && $albumE->verify()) {
+                    $query = "INSERT INTO album (name, privacy, user_id) VALUES (?, ?, ?)";
+                    $stmt = $connection->pdo->prepare($query);
+                    $stmt->execute([$albumV->name, $albumV->privacy, $albumV->user_id]);
+                    $stmt->execute([$albumE->name, $albumE->privacy, $albumE->user_id]);
+
+                    header(('Location: login.php'));
+                } else {
+                    echo 'Internal error 🥲';
+                }
             }
-        } else {
-            echo 'Erreur de saisie';
         }
     }
 ?>
@@ -35,7 +43,7 @@
 <?php require_once 'require/head.php';?>
 
 
-<body class="bg-violetwe">
+<body>
     <?php require_once 'require/nav.php';?>
 
     <div class="mt-16  h-auto bg-white ml-auto mr-auto rounded-lg p-4 border-8">

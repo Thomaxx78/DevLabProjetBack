@@ -40,6 +40,7 @@
         require_once 'class/user.php';
         $connection = new Connection();
         $albums = $connection->getAlbumFromID($userId);
+        $allalbumslikes = $connection->getAlbumLikeFromID($_SESSION['id']);
     ?>
         <div class="lg:ml-16 mt-8">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Albums publiques</h2>
@@ -59,7 +60,8 @@
                 <?php 
                 $albumsShare = $connection->getSharedAlbums($userId);
 				foreach ($albumsShare as $albumShare){
-                    if($album['privacy'] == "public"){?>
+                    $share = $connection->wantToShare($albumShare['id'], $albumShare['user_id']);
+                    if($albumShare['privacy'] == "public" and $share==1){?>
                         <p><?=$albumShare['name']?></p>
                         <a href="album.php?id=<?=($albumShare['id'])?>">Voir l'album</a>
 				<?php }}?>
@@ -85,6 +87,21 @@
         </div>
             </div>
 
+
+        <div>
+            <h2> Ses albums likés </h2>
+            <div>
+                <?php foreach ($allalbumslikes as $albumlike) { ?>
+                    <?php if ($_SESSION['id']==$albumlike['user_id']){ ?>
+                        <div>
+                            <span> <?= $albumlike['name']?></span>
+                            <a href="album.php?id=<?= $albumlike['album_id']?>">Voir</a>
+                        </div>
+                        <br>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+        </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
