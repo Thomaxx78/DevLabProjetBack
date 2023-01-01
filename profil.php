@@ -60,32 +60,38 @@
                 <?php 
                 $albumsShare = $connection->getSharedAlbums($userId);
 				foreach ($albumsShare as $albumShare){
-                    $share = $connection->wantToShare($albumShare['id'], $albumShare['user_id']);
+                    // var_dump($albumShare);
+                    $share = $connection->wantToShare($albumShare['id'], $_GET['id']);
                     if($albumShare['privacy'] == "public" and $share==1){?>
                         <p><?=$albumShare['name']?></p>
                         <a href="album.php?id=<?=($albumShare['id'])?>">Voir l'album</a>
 				<?php }}?>
             </div>
         </div>
-        <div class="lg:ml-16">
-            <h2 class="text-lightgrey text-base lg:text-xl">Envie de partager un album ?</h2>
-            <form method="POST">
-                <select name="shareAlbum" id="shareAlbum">
-                    <?php 
-                    $myAlbums = $connection->getAlbumFromID($_SESSION['id']);
-                    foreach ($myAlbums as $myAlbum):?>
-                        <option value="<?=$myAlbum['id']?>"><?=$myAlbum['name']?></option>
-                    <?php endforeach; ?>
-                </select>
-                <button type="submit">Partager l'album</button>
-            </form>
-            <?php
-                if(isset($_POST['shareAlbum'])){
-                    $connection->shareAlbum($_POST['shareAlbum'], $userId, $_SESSION['id']);
-                }
-            ?>  
-        </div>
+        <?php if($_SESSION['id'] != $userId){?>
+            <div>
+                <h2>Partager un album </h2>
+                <form method="POST">
+                    <select name="shareAlbum" id="shareAlbum">
+                        <?php 
+                        $myAlbums = $connection->getAlbumFromID($_SESSION['id']);
+                        foreach ($myAlbums as $myAlbum):?>
+                            <option value="<?=$myAlbum['id']?>"><?=$myAlbum['name']?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <button type="submit">Partager l'album</button>
+                </form>
+                <?php
+                    if(isset($_POST['shareAlbum'])){
+                        $alreadyShared = $connection->verifyAlbumAlreadyShared($_POST['shareAlbum'], $userId);
+                        if(!$alreadyShared){
+                            $connection->shareAlbum($_POST['shareAlbum'], $userId, $_SESSION['id']);
+                        }
+                    }
+                ?>  
             </div>
+        <?php }?>
+
 
 
         <div>
