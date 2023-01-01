@@ -35,35 +35,49 @@
 <?php require_once 'require/head.php';?>
 
 
-<body>
+<body class="bg-violetwe">
     <?php require_once 'require/nav.php';?>
-    <h1>S'inscrire</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <label for="email">Adresse Mail</label>
-        <input type="email" name="email" placeholder="Entrer votre adresse mail">
-        <label for="password">Mot de passe</label>
-        <input type="password" name="password" placeholder="Entrer un mot de passe">
-        <label for="username">Nom d'utilisateur</label>
-        <input type="text" name="username" placeholder="Entrer votre nom d'utilisateur">
 
-        <label for="description">Description</label>
-        <textarea type="text" name="description" id="description" rows=1 COLS=40 placeholder="Ajouter la description de la carte"></textarea>
-
-        <label for="age">Age</label>
-        <input type="text" name="age" placeholder="Entrer votre âge">
-
-        <div>
-            <img src="images/icons/add_image.png" alt="">
-            <p>PNG ou JPG inférieur à 5MB</p>
-            <div>
-                <input id="file" type="file" accept="image/png, image/jpeg" name="logo" class="inputfile" data-multiple-caption="{count} files selected" multiple >
-                <label for="file" class="custom-file-upload"><span>Selectioner un fichier&hellip;</span></label>
+    <div class="mt-16  h-auto bg-white ml-auto mr-auto rounded-lg p-4 border-8">
+        <h1 class="text-2xl text-darkgrey font-semibold text-center">S'inscrire</h1>
+        <form method="POST" enctype="multipart/form-data" class="flex flex-col mt-8">
+            <div class="flex justify-center">
+                <div>
+                    <h1 class="text-lg font-semibold">Vos informations:</h1>
+                    <div class="shadow p-1 rounded-lg flex flex-col mx-3 mt-4">
+                        <label for="email" class="font-semibold">Adresse Mail:</label>
+                        <input type="email" name="email" placeholder="Entrer votre adresse mail">
+                    </div>
+                    <div class="shadow p-1 rounded-lg mt-2 flex flex-col mx-3">
+                        <label for="password" class="font-semibold">Mot de passe:</label>
+                        <input type="password" name="password" placeholder="Entrer un mot de passe">
+                    </div>
+                    <div class="shadow p-1 rounded-lg mt-2 flex flex-col mx-3">
+                        <label for="age" class="font-semibold">Votre age:</label>
+                        <input type="text" name="age" placeholder="Entrer votre âge">
+                    </div>
+                </div>
+                <div>
+                <h1 class="text-lg font-semibold">Votre profil Delimovie:</h1>
+                    <div class="shadow p-1 rounded-lg flex flex-col mx-3 mt-4">
+                        <label for="username" class="font-semibold">Nom d'utilisateur:</label>
+                        <input type="text" name="username" placeholder="Entrer votre nom d'utilisateur">
+                    </div>
+                    <div class="shadow p-1 rounded-lg mt-2 flex flex-col mx-3">
+                        <label for="description" class="font-semibold">Description:</label>
+                        <textarea type="text" name="description" id="description" rows=1 COLS=40 placeholder="Ajouter la description de la carte"></textarea>
+                    </div>
+                    <div class="shadow p-1 rounded-lg mt-2 flex flex-col mx-3">
+                        <input id="file" type="file" accept="image/png, image/jpeg" name="logo" class="inputfile" data-multiple-caption="{count} files selected" multiple >
+                        <label for="file" class="custom-file-upload flex flex-col"><span>Selectioner un fichier&hellip;</span></label>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <button type="submit" class="btn">Submit</button>
-    </form>
-    <p> Déjà un compte ? Connectez-vous <a href="login.php"> ici</a>.</p>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+        <p class="m-auto"> Déjà un compte ?<a href="login.php" class="text-violetwe"> Connectez-vous.</a></p>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
