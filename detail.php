@@ -20,11 +20,13 @@
                         <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
                         <select name="albumChoice" id="albumChoice">
                             <?php 
-                                $connection = new Connection();
-                                $albums = $connection->getAlbumFromID($_SESSION['id']);
-                                var_dump($albums);
-                                foreach($albums as $album){
-                                    echo '<option value="' . $album['id'] . '">' . $album['name'] . '</option>';
+                                if(isset($_SESSION['id'])){
+                                    $connection = new Connection();
+                                    $albums = $connection->getAlbumFromID($_SESSION['id']);
+                                    var_dump($albums);
+                                    foreach($albums as $album){
+                                        echo '<option value="' . $album['id'] . '">' . $album['name'] . '</option>';
+                                    }
                                 }
                             ?>
                         </select>
