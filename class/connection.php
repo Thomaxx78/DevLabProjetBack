@@ -6,8 +6,8 @@ class Connection
 
     public function __construct()
     {
-        // $this->pdo = new PDO('mysql:dbname=backend-project; host=127.0.0.1', 'root', 'root');
-        $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', '');
+        // $this->pdo = new PDO('mysql:dbname=delimovie; host=127.0.0.1', 'root', 'root');
+        $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', 'root');
     }
 
     public function insert(User $user): bool

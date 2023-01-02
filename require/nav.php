@@ -9,11 +9,11 @@
 			</button>
 		</div>
         <input type="text" id="searchBar" class="hidden lg:block lg:w-2/12 lg:h-8 lg:rounded-lg lg:bg-white lg:p-2 ml-40 mr-auto" placeholder="Rechercher votre film">
-		<ul class="hidden lg:flex ">
+		<ul class="hidden  lg:flex lg:items-center">
             <?php 
             if (isset($_SESSION['username'])) { ?>
-			<li> <a href="users.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Utilisateurs</a></li>
-            <li> <a href="logout.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 ">Déconnection</a></li>
+			<li> <a href="users.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white">Utilisateurs</a></li>
+            <li> <a href="logout.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white">Déconnection</a></li>
 			<li> <a href="dashboard.php" class="hidden lg:block"><img class="lg:w-14 lg:h-14 object-cover rounded-full shadow-lg" src="images/avatars/<?php echo $_SESSION['logo'];?>" alt=""></a></li>
             <?php } 
             else { ?>
@@ -43,14 +43,14 @@
 					</li>
 				</ul>
 			</div>
-			<div class="mt-auto flex items-center mb-12">
+			<div class="mt-auto flex items-center mb-12">li>
 				<li class="mb-1">
-					<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="connexion.php">Connexion</a>
+					<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="login.php">Connexion</a>
 				</li>
 				<li class="mb-1">
-					<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="inscription.php">Inscription</a>
+					<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="signin.php">Inscription</a>
 				</li>
 			</div>
             <script src="js/burger.js"></script>
-		</nav>
+		</nav
 	</div>
