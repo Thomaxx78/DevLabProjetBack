@@ -26,6 +26,8 @@
                                     foreach($albums as $album){
                                         echo '<option value="' . $album['id'] . '">' . $album['name'] . '</option>';
                                     }
+
+                                    
                                     $albumsShare = $connection->getAlbumShared($_SESSION['id']);
                                     foreach($albumsShare as $albumShare){
                                         $getAlbum = $connection->getAlbum($albumShare['id_album'])[0];
