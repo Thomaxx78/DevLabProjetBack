@@ -52,5 +52,5 @@
 				</li>
 			</div>
             <script src="js/burger.js"></script>
-		</nav
+		</nav>
 	</div>
