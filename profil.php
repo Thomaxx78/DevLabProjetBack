@@ -60,7 +60,6 @@
                 <?php 
                 $albumsShare = $connection->getSharedAlbums($userId);
 				foreach ($albumsShare as $albumShare){
-                    // var_dump($albumShare);
                     $share = $connection->wantToShare($albumShare['id'], $_GET['id']);
                     if($albumShare['privacy'] == "public" and $share==1){?>
                         <p><?=$albumShare['name']?></p>
