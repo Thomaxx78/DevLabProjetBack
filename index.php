@@ -28,8 +28,11 @@
     </div>
     <div class="block lg:hidden h-32 bg-semidarkgrey mt-28 pt-4">
         <h3 class="text-2xl text-white text-center">Trier Version Téléphone</h3>
-    </div>
-    <div class="divParent flex flex-col items-center lg:flex-row lg:flex-wrap lg:justify-center gap-8 lg:ml-96 lg:mt-40"></div>
+    </div>    
+</div>
+
+    
+        <div class="divParent flex flex-col items-center lg:flex-row lg:flex-wrap lg:justify-center gap-8 lg:ml-96 lg:mt-40"></div>
     
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>

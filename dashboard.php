@@ -87,24 +87,29 @@
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums:</h2>
             <h3 class="text-lightgrey text-base lg:text-xl">Vos albums publiques sont visibles par tous.</h3>
-            <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
-                <?php 
+
+            <div class="carousel" data-flickity='{ "groupCells": true }'>
+        <?php 
                     $allalbums = $connection->getAlbumFromID($_SESSION['id']);
                     foreach ($allalbums as $album) {
                         if ($_SESSION['id']==$album['user_id']){ ?>
-                            <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
-                                <span class="mt-2 text-gray-400"><?=$album['privacy']?></span>
-                                <span class="font-bold m-auto mt-4 text-white text-xl"> <?= $album['name']?></span>
-                                <a href="album.php?id=<?= $album['id']?>" class="text-white m-auto font-semibold ">Voir</a>
-                                <form class="mr-0 ml-auto" method="POST" action="dashboard.php">
+                            <div class="flex flex-col w-3/12 h-64 mr-10 border border-lg">
+                                <span class="text-xl ml-4 mt-4 text-gray-400"><?=$album['privacy']?></span>
+                                <div class="flex flex-col m-auto">
+                                    <span class="text-center font-bold text-white text-3xl"> <?= $album['name']?></span>
+                                    <a href="album.php?id=<?= $album['id']?>" class="text-white text-center font-semibold">Voir</a>
+                                </div>
+                                <form class="mr-4 ml-auto mb-4" method="POST" action="dashboard.php">
                                     <input type="hidden" name="delete_album" value="<?= $album["id"]; ?>">
-                                    <input class="text-center rounded w-4 h-4 mt-4" type="submit" name="deleteAlbum">Supprimer</input>
+                                    <button class=" rounded w-6 h-6 " type="submit" name="deleteAlbum"><img src="public/supprimer.png" alt=""></button>
                                 </form>
                             </div>
                             <br>
                         <?php } ?>
                     <?php } ?>
-            </div>
+           
+        </div>
+        
         </div>
 
         <div class="lg:ml-8 mt-16">
