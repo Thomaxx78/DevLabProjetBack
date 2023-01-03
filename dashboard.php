@@ -89,7 +89,7 @@
             <h3 class="text-lightgrey text-base lg:text-xl">Vos albums publiques sont visibles par tous.</h3>
 
             <div class="carousel" data-flickity='{ "groupCells": true }'>
-        <?php 
+                <?php 
                     $allalbums = $connection->getAlbumFromID($_SESSION['id']);
                     foreach ($allalbums as $album) {
                         if ($_SESSION['id']==$album['user_id']){ ?>
@@ -104,14 +104,10 @@
                                     <button class=" rounded w-6 h-6 " type="submit" name="deleteAlbum"><img src="public/supprimer.png" alt=""></button>
                                 </form>
                             </div>
-                            <br>
                         <?php } ?>
                     <?php } ?>
-           
+            </div>
         </div>
-        
-        </div>
-
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums likés:</h2>
             <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
@@ -123,7 +119,6 @@
                             <span class="font-bold m-auto mt-4 text-white text-xl"> <?= $albumlike['name']?></span>
                             <a href="album.php?id=<?= $albumlike['album_id']?>" class="text-white m-auto font-semibold ">Voir</a>
                         </div>
-                        <br>
                     <?php } ?>
                 <?php } ?>
             </div>
@@ -139,7 +134,6 @@
                         <span class="font-bold m-auto mt-4 text-white text-xl"><?= $albumShare['name']?></span>
                         <a href="album.php?id=<?= $albumShare['id']?>" class="text-white m-auto font-semibold ">Voir</a>
                     </div>
-                    <br>
                 <?php } ?>
             </div>
         </div>
