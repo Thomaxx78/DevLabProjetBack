@@ -37,7 +37,7 @@ function movieDetails(id) {
                     </div>
                 </div>
                 
-                <a href="index.php" class="rounded-lg border border-black px-3 py-1 ml-8 lg:ml-16 lg:mt-8">Revenir à l'accueil</a>`
+                <a href="index.php" class="rounded-lg border border-black px-3 py-1 ml-8 lg:ml-16 lg:mt-8 hover:bg-black hover:text-white">Revenir à l'accueil</a>`
             parent.appendChild(film);
         })
 }

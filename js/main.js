@@ -37,15 +37,17 @@ axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff
         inputGetCategory.appendChild(option);
         // Récupérer l'id du genre de film sélectionné
         inputGetCategory.addEventListener("change", function(){
-            axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
-                .then((response) => {
-                    let genres = response.data.genres;
-                    genres.forEach(genre => {
-                        if (genre.name == option.innerHTML) {
-                            moviesByCategory(genre.id)
-                        }
+                axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
+                    .then((response) => {
+                        let genres = response.data.genres;
+                        genres.forEach(genre => {
+                            if (genre.name == option.innerHTML) {
+                                moviesByCategory(genre.id)
+                            } else{
+                                console.log("Genre not found");
+                            }
+                            })
                     })
-                })
             })
         })
     })
@@ -86,7 +88,7 @@ function showMovie(parent, film, movie){
     `
         <img class="w-32" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
         <span class="text-center mt-1">${title}</span>
-        <button class="detailsMovie text-darkgrey" value="${movie.id}">Voir les détails</button>
+        <button class="detailsMovie text-darkgrey" value="${movie.id}">Movie Details</button>
         <span class="hidden">${movie.vote_average}</span>
         <span class="hidden">${movie.popularity}</span>
     `
