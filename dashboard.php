@@ -59,13 +59,15 @@
                     <h1 class="lg:text-7xl text-3xl font-bold"> <?php echo $_SESSION['username'];?></h1>
                     <p class="hidden lg:block lg:ml-1 mt-4 w-full lg:w-10/12"><?php echo $_SESSION['description'];?></p>
                 </div>
-                <div class="text-white w-6/12">
-                    <h3 class="block text-xl font-semibold">Mes notifications</h3>
-                    <div class="flex flex-col gap-4 mt-8">
+                <div class="text-white w-6/12  rounded-lg">
+                    <div class="flex flex-col gap-4 mt-8 ml-4">
                         <?php
                             $allnotifications = $connection->getNotificationFromID($_SESSION['id']);
                             if (empty($allnotifications)) {
-                                echo "Vous n'avez pas de notifications";
+                                ?> 
+                                <button  onclick="Swal.fire({icon: 'error', title: 'Oops...', text: 'Vous avez 0 notifications.', confirmButtonColor:'#646ECB'})"><img src="public/0notif.png" alt=""></button>
+                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                                <?php
                             }
                             foreach ($allnotifications as $notification) {
                                 // var_dump($notification["album"][0]["name"]);
@@ -91,7 +93,7 @@
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums:</h2>
             <h3 class="text-lightgrey text-base lg:text-xl">Vos albums publiques sont visibles par tous.</h3>
 
-            <div class="carousel" data-flickity='{ "groupCells": true }'>
+            <div class="carousel hidden lg:block  mt-8" data-flickity='{ "groupCells": true, "cellAlign": "left"}'>
         <?php 
                     $allalbums = $connection->getAlbumFromID($_SESSION['id']);
                     foreach ($allalbums as $album) {
@@ -107,17 +109,52 @@
                                     <button class=" rounded w-6 h-6 " type="submit" name="deleteAlbum"><img src="public/supprimer.png" alt=""></button>
                                 </form>
                             </div>
-                            <br>
                         <?php } ?>
                     <?php } ?>
-           
         </div>
-        
+        <div class="carousel block lg:hidden mt-8" data-flickity='{ "groupCells": 1, "prevNextButtons": false }'>
+        <?php 
+                    $allalbums = $connection->getAlbumFromID($_SESSION['id']);
+                    foreach ($allalbums as $album) {
+                        if ($_SESSION['id']==$album['user_id']){ ?>
+                            <div class="flex flex-col w-8/12 h-64 mr-10 border border-lg">
+                                <span class="text-xl ml-4 mt-4 text-gray-400"><?=$album['privacy']?></span>
+                                <div class="flex flex-col m-auto">
+                                    <span class="text-center font-bold text-white text-3xl"> <?= $album['name']?></span>
+                                    <a href="album.php?id=<?= $album['id']?>" class="text-white text-center font-semibold">Voir</a>
+                                </div>
+                                <form class="mr-4 ml-auto mb-4" method="POST" action="dashboard.php">
+                                    <input type="hidden" name="delete_album" value="<?= $album["id"]; ?>">
+                                    <button class=" rounded w-6 h-6 " type="submit" name="deleteAlbum"><img src="public/supprimer.png" alt=""></button>
+                                </form>
+                            </div>
+                        <?php } ?>
+                    <?php } ?>
+        </div>
+
         </div>
 
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums likés:</h2>
-            <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
+            <div class="text-lightgrey">
+            <?php 
+                $allalbumslikes = $connection->getAlbumLikeFromID($_SESSION['id']);
+                if (empty($allalbumslikes)) {
+                    echo "Vous n'avez pas liké d'albums pour le moment";
+                } ?>
+            </div>
+            <div class="carousel hidden lg:block mt-8" data-flickity='{ "groupCells": true, "cellAlign": "left"}'>
+                <?php 
+                foreach ($allalbumslikes as $albumlike) {
+                    if ($_SESSION['id']==$albumlike['user_id']){ ?>
+                        <div class="flex flex-col w-3/12 h-64 mr-10 border border-lg text-center justify-center">
+                            <span class="text-center font-bold text-white text-3xl"> <?= $albumlike['name']?></span>
+                            <a href="album.php?id=<?= $albumlike['album_id']?>" class="text-white font-semibold ">Voir</a>
+                        </div>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+            <div class="carousel block lg:hidden mt-8" data-flickity='{ "groupCells": 1, "prevNextButtons": false}'>
                 <?php 
                 $allalbumslikes = $connection->getAlbumLikeFromID($_SESSION['id']);
                 if (empty($allalbumslikes)) {
@@ -125,11 +162,10 @@
                 }
                 foreach ($allalbumslikes as $albumlike) {
                     if ($_SESSION['id']==$albumlike['user_id']){ ?>
-                        <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
-                            <span class="font-bold m-auto mt-4 text-white text-xl"> <?= $albumlike['name']?></span>
-                            <a href="album.php?id=<?= $albumlike['album_id']?>" class="text-white m-auto font-semibold ">Voir</a>
+                        <div class="flex flex-col w-8/12 h-64 mr-10 border border-lg text-center justify-center">
+                            <span class="text-center font-bold text-white text-3xl"> <?= $albumlike['name']?></span>
+                            <a href="album.php?id=<?= $albumlike['album_id']?>" class="text-white font-semibold ">Voir</a>
                         </div>
-                        <br>
                     <?php } ?>
                 <?php } ?>
             </div>
@@ -137,16 +173,28 @@
     
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums partagés:</h2>
-            <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
-                <?php 
-                $albumsShare = $connection->getSharedAlbums($_SESSION['id']);
-                if (empty($albumsShare)) {
-                    echo "Vous n'avez aucun albums pour le moment";
-                }
+                <div class="text-lightgrey">
+                    <?php 
+                    $albumsShare = $connection->getSharedAlbums($_SESSION['id']);
+                    if (empty($albumsShare)) {
+                        echo "Vous n'avez aucun albums pour le moment";
+                    } ?>
+                </div>
+                <div class="carousel hidden lg:block mt-8" data-flickity='{ "groupCells": true, "cellAlign": "left"}'>
+                <?php foreach ($albumsShare as $albumShare) {?>
+                    <div class="flex flex-col w-10/12 h-64 mr-10 border border-lg text-center justify-center">
+                        <span class="text-center font-bold text-white text-3xl"><?= $albumShare['name']?></span>
+                        <a href="album.php?id=<?= $albumShare['id']?>" class="text-white font-semibold ">Voir</a>
+                    </div>
+                    <br>
+                <?php } ?>
+            </div>
+            <div class="carousel block lg:hidden mt-8" data-flickity='{ "groupCells": 1, "prevNextButtons": false}'>
+            <?php 
                 foreach ($albumsShare as $albumShare) {?>
-                    <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
-                        <span class="font-bold m-auto mt-4 text-white text-xl"><?= $albumShare['name']?></span>
-                        <a href="album.php?id=<?= $albumShare['id']?>" class="text-white m-auto font-semibold ">Voir</a>
+                    <div class="flex flex-col w-8/12 h-64 mr-10 border border-lg text-center justify-center">
+                        <span class="text-center font-bold text-white text-3xl"><?= $albumShare['name']?></span>
+                        <a href="album.php?id=<?= $albumShare['id']?>" class="text-white font-semibold ">Voir</a>
                     </div>
                     <br>
                 <?php } ?>
