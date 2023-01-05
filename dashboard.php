@@ -51,7 +51,8 @@
     ?>
 
     <div class="lg:mx-24 bg-darkgrey p-8 mt-8 rounded-lg lg:w-auto w-10/12 m-auto">
-        <div class="flex  lg:mt-8 items-center">
+        <div class="flex">
+        <div class="flex mt-8 items-center ">
             <img class="lg:w-64 lg:h-64 w-32 h-32 lg:ml-8 object-cover rounded-full shadow-lg" src="images/avatars/<?php echo $_SESSION['logo'];?>" alt="">
             <div class="flex flex-row justify-between">
                 <div class="ml-4 text-white">
@@ -59,36 +60,46 @@
                     <h1 class="lg:text-7xl text-3xl font-bold"> <?php echo $_SESSION['username'];?></h1>
                     <p class="hidden lg:block lg:ml-1 mt-4 w-full lg:w-10/12"><?php echo $_SESSION['description'];?></p>
                 </div>
-                <div class="text-white w-6/12  rounded-lg">
-                    <div class="flex flex-col gap-4 mt-8 ml-4">
-                        <?php
-                            $allnotifications = $connection->getNotificationFromID($_SESSION['id']);
-                            if (empty($allnotifications)) {
-                                ?> 
-                                <button  onclick="Swal.fire({icon: 'error', title: 'Oops...', text: 'Vous avez 0 notifications.', confirmButtonColor:'#646ECB'})"><img src="public/0notif.png" alt=""></button>
-                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-                                <?php
-                            }
-                            foreach ($allnotifications as $notification) {
+            </div>
+        </div>
+        <?php $allnotifications = $connection->getNotificationFromID($_SESSION['id']);
+        if (!empty($allnotifications)) { ?>
+        <button class="openbtn mt-0  mr-0 mb-auto bg-violetwe p-2 rounded-lg">
+            <img class="w-6 lg:w-10" src="public/notification.png" alt="">
+        </button>
+                <div class="lemodal hidden left-0 right-0 mx-auto my-auto absolute w-8/12 lg:w-4/12 h-auto bg-white  rounded-lg p-4">
+                    <button class="closebtn absolute top-4 right-4 text-sm font-medium leading-5">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
+                        </svg>
+                    </button>
+                    <h1 class="text-center text-2xl font-bold mt-6 lg:mt-4">Vos notifications:</h1>
+                    <?php foreach ($allnotifications as $notification) {
                                 // var_dump($notification["album"][0]["name"]);
                                 $userAlbum = $connection->GetSingleUser($notification['id_user']);
                                 ?>
-                                <span><?= $userAlbum[0]["username"];?> souhaite partager avec toi un album intitulé "<?= $notification["album"][0]["name"];?>"</span>
-                                <div class="flex flex-row gap-8">
-                                    <form method="POST">
-                                        <input type="hidden" name="accept" value="<?= $notification["id"]; ?>">
-                                        <button type="submit">Accepter</button>
-                                    </form>
-                                    <form method="POST">
-                                        <input type="hidden" name="refuse" value="<?= $notification["id"]; ?>">
-                                        <button type="submit">Décliner</button>
-                                    </form>
+                                <div class="mt-8 w-10/12 mx-auto text-center">
+                                    <span class="text-lg text-center "><?= $userAlbum[0]["username"];?> vous invite à partager un album:   "<?= $notification["album"][0]["name"];?>"</span>
+                                    <div class="flex flex-row gap-8 mt-8 justify-center">
+                                        <form method="POST">
+                                            <input type="hidden" name="accept" value="<?= $notification["id"]; ?>">
+                                            <button type="submit" class="rounded-full border-2 p-1 border-green-600">
+                                                <img class="w-6 h-6"src="public/verifier.png" alt="">
+                                            </button>
+                                        </form>
+                                        <form method="POST">
+                                            <input type="hidden" name="refuse" value="<?= $notification["id"]; ?>">
+                                            <button type="submit" class="rounded-full border-2 p-1.5 border-red-600">
+                                                <img class="w-5 h-5"src="public/croix.png" alt="">
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             <?php } ?>
-                    </div>
                 </div>
-            </div>
-        </div>
+<script src="js/pop.js"></script>
+<?php } ?>
+    </div>
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums:</h2>
             <h3 class="text-lightgrey text-base lg:text-xl">Vos albums publiques sont visibles par tous.</h3>
@@ -133,7 +144,6 @@
         </div>
 
         </div>
-
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums likés:</h2>
             <div class="text-lightgrey">
@@ -182,7 +192,7 @@
                 </div>
                 <div class="carousel hidden lg:block mt-8" data-flickity='{ "groupCells": true, "cellAlign": "left"}'>
                 <?php foreach ($albumsShare as $albumShare) {?>
-                    <div class="flex flex-col w-10/12 h-64 mr-10 border border-lg text-center justify-center">
+                    <div class="flex flex-col w-3/12 h-64 mr-10 border border-lg text-center justify-center">
                         <span class="text-center font-bold text-white text-3xl"><?= $albumShare['name']?></span>
                         <a href="album.php?id=<?= $albumShare['id']?>" class="text-white font-semibold ">Voir</a>
                     </div>
@@ -196,7 +206,6 @@
                         <span class="text-center font-bold text-white text-3xl"><?= $albumShare['name']?></span>
                         <a href="album.php?id=<?= $albumShare['id']?>" class="text-white font-semibold ">Voir</a>
                     </div>
-                    <br>
                 <?php } ?>
             </div>
         </div>

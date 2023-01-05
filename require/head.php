@@ -11,5 +11,14 @@
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script src="sweetalert2.min.js"></script>
     <link rel="stylesheet" href="sweetalert2.min.css">
+    <!-- CSS de Bootstrap -->
+<link rel="stylesheet" href="path/to/bootstrap.min.css">
+<!-- CSS de Tailwind -->
+<link rel="stylesheet" href="path/to/tailwind.css">
+
+<!-- JavaScript de Tailwind -->
+<script src="path/to/tailwind.js"></script>
+
+
     <title>DeliMovie</title>
 </head>
