@@ -41,7 +41,7 @@
 ?>
 <?php require 'require/head.php';?>
 
-<body class="bg-violetwe">
+<body class="bg-violetwe pb-8">
     <?php
         if (!isset($_SESSION['username'])) {
             header('Location: login.php');
