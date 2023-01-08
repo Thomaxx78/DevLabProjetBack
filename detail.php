@@ -12,43 +12,44 @@
         <?php require 'require/nav.php' ?>
     </header>
     <main>
-
         <div class="divParent flex m-8 mt-40 lg:flex-row lg:mx-16 rounded-lg shadow-lg border-2 ">
             <div class="divParentContent m-8">
-                <div class="flex gap-4 items-center">
-                    <h2 class="font-semibold ">Ajouter le film à un de vos albums:</h2>
-                    <form method="POST">
-                        <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
-                        <select name="albumChoice" id="albumChoice">
-                            <?php 
-                                if(isset($_SESSION['id'])){
-                                    $albums = $connection->getAlbumFromID($_SESSION['id']);
-                                    foreach($albums as $album){
-                                        echo '<option value="' . $album['id'] . '">' . $album['name'] . '</option>';
-                                    }
-                                    $albumsShare = $connection->getAlbumShared($_SESSION['id']);
-                                    foreach($albumsShare as $albumShare){
-                                        $getAlbum = $connection->getAlbum($albumShare['id_album'])[0];
-                                        echo '<option value="' . $albumShare['id_album'] . '">' . $getAlbum['name'] . '</option>';
+                <?php
+                    if (isset($_SESSION['username'])) { ?>
+                        <div class="flex gap-4 items-center">
+                            <h2 class="font-semibold ">Ajouter le film à un de vos albums:</h2>
+                            <form method="POST">
+                                <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+                                <select name="albumChoice" id="albumChoice">
+                                    <?php 
+                                        if(isset($_SESSION['id'])){
+                                            $albums = $connection->getAlbumFromID($_SESSION['id']);
+                                            foreach($albums as $album){
+                                                echo '<option value="' . $album['id'] . '">' . $album['name'] . '</option>';
+                                            }
+                                            $albumsShare = $connection->getAlbumShared($_SESSION['id']);
+                                            foreach($albumsShare as $albumShare){
+                                                $getAlbum = $connection->getAlbum($albumShare['id_album'])[0];
+                                                echo '<option value="' . $albumShare['id_album'] . '">' . $getAlbum['name'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <input class="border border-black rounded-lg py-0.5 px-1.5 ml-2" type="submit" value="Ajouter">
+                            </form>
+                            <?php
+                                if(isset($_POST['albumChoice'])){
+                                    $connection->verifyMovie($_GET['id']);
+                                    $alreadyAdd = $connection->verifyMovieAlreadyAdded($_GET['id'], $_POST['albumChoice']);
+                                    if($alreadyAdd == false){
+                                        $connection->addMovieToAlbum($_GET['id'], $_POST['albumChoice']);
+                                    } else {
+                                        echo '<p class="text-red-500">Ce film est déjà dans cet album</p>';
                                     }
                                 }
                             ?>
-                        </select>
-                        <input class="border border-black rounded-lg py-0.5 px-1.5 ml-2" type="submit" value="Ajouter">
-                    </form>
-                    <?php
-
-                        if(isset($_POST['albumChoice'])){
-                            $connection->verifyMovie($_GET['id']);
-                            $alreadyAdd = $connection->verifyMovieAlreadyAdded($_GET['id'], $_POST['albumChoice']);
-                            if($alreadyAdd == false){
-                                $connection->addMovieToAlbum($_GET['id'], $_POST['albumChoice']);
-                            } else {
-                                echo '<p class="text-red-500">Ce film est déjà dans cet album</p>';
-                            }
-                        }
-                    ?>
-                </div>
+                        </div>
+                    <?php } ?>
             </div>
         </div>
         <div class="flex ml-16 mt-4 gap-4">

@@ -30,6 +30,12 @@
         }
     }
 
+    if (isset($_POST['sort'])) {
+        $sort = $connection->albumSort($_SESSION['id']);
+    }
+
+
+
     if(isset($_POST["accept"]) || isset($_POST["refuse"])){
         if(isset($_POST["accept"])){
             $accept = $connection->acceptShare($_POST["accept"]);
@@ -49,6 +55,8 @@
 
         require_once 'require/nav.php';
     ?>
+
+
 
     <div class="lg:mx-24 bg-darkgrey p-8 mt-8 rounded-lg lg:w-auto w-10/12 m-auto">
         <div class="flex  lg:mt-8 items-center">
@@ -104,7 +112,12 @@
                             <br>
                         <?php } ?>
                     <?php } ?>
+
+                    <form method="POST" action="dashboard.php">
+                        <input type="submit" value="Sort by name" name="sort">
+                    </form>
             </div>
+
         </div>
 
         <div class="lg:ml-8 mt-16">
@@ -149,7 +162,6 @@
                 <div class="flex mt-4">
                     <label for="privacy" class="text-white text-xl mr-2">Confidentialité:</label>
                     <select class="privacy_select bg-darkgrey text-white border border-white rounded-lg" name="privacy" id="privacy">
-                        <option value="interdit">Choisir</option>
                         <option value="public">Public</option>
                         <option value="private">Privé</option>
                     </select>
