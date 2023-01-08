@@ -104,10 +104,12 @@
                                 <span class="mt-2 text-gray-400"><?=$album['privacy']?></span>
                                 <span class="font-bold m-auto mt-4 text-white text-xl"> <?= $album['name']?></span>
                                 <a href="album.php?id=<?= $album['id']?>" class="text-white m-auto font-semibold ">Voir</a>
-                                <form class="mr-0 ml-auto" method="POST" action="dashboard.php">
-                                    <input type="hidden" name="delete_album" value="<?= $album["id"]; ?>">
-                                    <input class=" text-center rounded w-4 h-4 mt-4" type="image" name="deleteAlbum" src="public/supprimer.png">
-                                </form>
+                                <?php if ($album['name'] != 'Visionnés' && $album['name'] != 'Liste Envies ') { ?>
+                                    <form class="mr-0 ml-auto" method="POST" action="dashboard.php">
+                                        <input type="hidden" name="delete_album" value="<?= $album["id"]; ?>">
+                                        <input class=" text-center rounded w-4 h-4 mt-4" type="image" name="deleteAlbum" src="public/supprimer.png">
+                                    </form>
+                                <?php } ?>
                             </div>
                             <br>
                         <?php } ?>
