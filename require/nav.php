@@ -38,19 +38,29 @@
 					<li class="mb-1">
 						<a href="index.php" class="block p-4 text-2xl font-bold text-white">Accueil</a>
 					</li>
+					<?php 
+            		if (isset($_SESSION['username'])) { ?>
+					<li class="mb-1">
+						<a href="dashboard.php" class="block p-4 text-2xl font-bold text-white">Mon profil</a>
+					</li>
 					<li class="mb-1">
 						<a href="users.php" class="block p-4 text-2xl font-bold text-white">Utilisateurs</a>
 					</li>
+					<li class="mb-1">
+						<a href="logout.php" class="block p-4 text-2xl font-bold text-white">Déconnection</a>
+					</li>
 				</ul>
+				<?php }
+				 else{ ?>
 			</div>
-			<div class="mt-auto flex items-center mb-12">li>
+			<div class="mt-auto flex items-center mb-12 gap-4">
 				<li class="mb-1">
 					<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="login.php">Connexion</a>
 				</li>
 				<li class="mb-1">
 					<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="signin.php">Inscription</a>
 				</li>
-			</div>
+			</div> <?php } ?>
             <script src="js/burger.js"></script>
 		</nav>
 	</div>
