@@ -179,3 +179,8 @@ search.addEventListener('keyup', function(){
     }
 })
 
+// Cacher les films déjà visionnés
+function a(allMoviesWatched){
+    console.log("ok")
+
+}

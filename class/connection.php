@@ -360,5 +360,40 @@ class Connection
         ]);
         return $statement->fetchAll();
     }
+
+    public function getAllMoviesAlreadyWatched($user_id){
+        $query = 'SELECT * FROM album WHERE user_id = :user_id AND name = "Visionnés"';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'user_id' => $user_id,
+        ]);
+
+        $data = $statement->fetchAll();
+        if($data){
+            $query = 'SELECT * FROM album_film WHERE album_id = :id';
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                'id' => $data[0]['id'],
+            ]);
+            $data = $statement->fetchAll();
+        } else {
+            return [];
+        }
+        if($data){
+            $allData = [];
+            foreach($data as $key => $value){
+                $query = 'SELECT * FROM film WHERE id = :id';
+                $statement = $this->pdo->prepare($query);
+                $statement->execute([
+                    'id' => $value['film_id'],
+                ]);
+                $data[$key]['film'] = $statement->fetchAll();
+                $allData[] = $data[$key]['film'][0]["film_id"];
+            };
+            return $allData;
+        } else {
+            return [];
+        }
+    }
 }
 

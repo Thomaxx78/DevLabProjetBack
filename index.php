@@ -1,5 +1,7 @@
 <?php
     session_start();
+    require_once 'class/connection.php';
+    $connection = new Connection();
 ?>
 <?php require 'require/head.php';?>
 <!DOCTYPE html>
@@ -23,11 +25,40 @@
             <select class="lg:my-4" id="inputGetCategory">
             </select>
         </div>
+        <?php
+            if(isset($_SESSION['id'])){
+        ?>
+        <div class="flex flex-row lg:flex-col items-center justify-around my-4">
+            <h3 class="text-2xl text-white">Ne pas afficher les films visionnés</h3>
+            <input type="checkbox" id="inputNotWatched">
+        </div>
+        <?php } ?>
     </div>
     <div class="divParent flex flex-col items-center lg:flex-row lg:flex-wrap lg:justify-center gap-8 lg:ml-64 mt-64 lg:mt-40"></div>
     
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>
+    <script>
+    <?php if(isset($_SESSION['id'])){?>
+        let allMoviesWatched = <?php echo json_encode($connection->getAllMoviesAlreadyWatched($_SESSION['id'])); ?>;
+        let hideWatched = document.querySelector("#inputNotWatched");
+        hideWatched.addEventListener('change', function(){
+            if(hideWatched.checked){
+                document.querySelectorAll('.divParent > div').forEach(movie => {
+                    if(allMoviesWatched.includes(parseInt(movie.children[2].value))){
+                        movie.classList.add("hidden");
+                    }
+                })
+            }  else {
+                document.querySelectorAll('.divParent > div').forEach(movie => {
+                    if(allMoviesWatched.includes(parseInt(movie.children[2].value))){
+                        movie.classList.remove("hidden");
+                    }
+                })
+            }
+        })
+    <?php } ?>
+    </script>
 </body>
 </html>
 
