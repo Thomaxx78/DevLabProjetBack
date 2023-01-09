@@ -138,6 +138,7 @@
                 if (empty($albumsShare)) {
                     echo "Vous n'avez aucun albums pour le moment";
                 }
+                var_dump($albumsShare);
                 foreach ($albumsShare as $albumShare) {?>
                     <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
                         <span class="font-bold m-auto mt-4 text-white text-xl"><?= $albumShare['name']?></span>
