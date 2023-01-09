@@ -121,7 +121,6 @@
                 $array_movies_id = [];
                 foreach($allMovies as $movie){
                     array_push($array_movies_id, $movie[0]["film_id"]);
-                    
                 }
             ?>
         </div>
@@ -134,5 +133,3 @@
     </main>
 </body>
 </html>
-
-        <

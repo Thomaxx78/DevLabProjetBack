@@ -1,4 +1,5 @@
 function showMoviesByIDs(allMoviesId, isAlbumOwner) {
+    console.log(allMoviesId, isAlbumOwner)
     allMoviesId.forEach((id) => {
     axios .get('https://api.themoviedb.org/3/movie/' + id + '?api_key=e5be04ec7de9aff432b14905a60c0bb8')
         .then((response) => {
@@ -11,7 +12,6 @@ function showMoviesByIDs(allMoviesId, isAlbumOwner) {
                         <h3 class="absolute inset-0 flex items-center justify-center font-bold text-black text-xl opacity-0 hover:bg-black hover:opacity-100 hover:bg-white/50 ">${movie.title}</h3>
                     </div>
             `;
-            console.log(isAlbumOwner);
             if(isAlbumOwner){
                 movieDiv.innerHTML += `
                     <form method="POST">
