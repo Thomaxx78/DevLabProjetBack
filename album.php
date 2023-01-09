@@ -37,7 +37,8 @@
     <header>
         <?php require_once 'require/nav.php'; ?>
     </header>
-    <main>
+    
+    <main class="w-full h-auto flex flex-col justify-center items-center">
         <?php
             $album = $connection->getAlbum($_GET['id'])[0];
             // var_dump($album);
@@ -67,7 +68,8 @@
                 </form>
             </div>
         </div>
-        <div id="divParentAlbum" class="flex flex-row gap-20">
+
+        <div id="divParentAlbum" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 p-5 gap-8">
             <?php
                 $allMovies = $connection->getMoviesFromAlbum($album['id']);
                 if(empty($allMovies)){
@@ -76,6 +78,7 @@
                 $array_movies_id = [];
                 foreach($allMovies as $movie){
                     array_push($array_movies_id, $movie[0]["film_id"]);
+                    
                 }
             ?>
         </div>
