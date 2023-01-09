@@ -1203,6 +1203,7 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+
 @media (min-width: 1024px) {
   .lg\:mx-24 {
     margin-left: 6rem;
