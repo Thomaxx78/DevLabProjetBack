@@ -35,7 +35,6 @@ class Connection
         return $datas;
     }
 
-
     public function GetUsers()
     {
         $query = 'SELECT * FROM user ORDER BY id';
@@ -43,7 +42,6 @@ class Connection
         $statement->execute();
         $data = $statement->fetchAll();
         return $data;
-
     }
 
     public function GetSingleUser($id): bool|array
@@ -53,6 +51,8 @@ class Connection
         return $request2->fetchAll();
     }
 
+
+    // ALBUM FUNCTIONS
     public function insertAlbum(Album $album)
     {
         $query = 'INSERT INTO album (name, privacy, user_id)
@@ -88,17 +88,17 @@ class Connection
         return $data;
     }
 
-
-    public function albumSort($id)
+    public function albumSort($id, $order = 'ASC', $column = 'name')
     {
-        $query =  'SELECT * FROM album WHERE user_id = '.$id.' ORDER BY name ASC';
+        $query =  "SELECT * FROM album WHERE user_id = $id ORDER BY $column $order";
         $statement = $this->pdo->prepare($query);
         $statement->execute();
-
+    
         $data = $statement->fetchAll();
         return $data;
     }
-    
+
+
     public function getAlbumLikeFromID($id)
     {
         $query =  'SELECT * FROM album INNER JOIN likes_album ON album.id = likes_album.album_id WHERE likes_album.user_id = '.$id;
@@ -118,6 +118,9 @@ class Connection
         return $statement;
     }
 
+
+
+    // ADD MOVIE TO ALBUM
     public function removeMovieFromAlbum($movie_id, $album_id){
         $query = 'SELECT id FROM film WHERE film_id = :movie_id';
         $statement = $this->pdo->prepare($query);
@@ -207,6 +210,9 @@ class Connection
         return $data;   
     }
 
+
+
+    // LIKE ALBUM
     public function likeAlbum($album_id, $user_id){
         $query = 'SELECT * FROM likes_album WHERE album_id = :album_id AND user_id = :user_id';
         $statement = $this->pdo->prepare($query);
@@ -242,6 +248,9 @@ class Connection
         return $statement->fetchAll()[0][0];
     }
 
+
+
+    //SHARE ALBUM
     public function shareAlbum($album_id, $user_id, $owner_id){
         $query = 'INSERT INTO album_share (id_album, id_user, id_owner)
                 VALUES (:album_id, :user_id, :owner_id)';

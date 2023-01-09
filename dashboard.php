@@ -31,10 +31,15 @@
     }
 
     if (isset($_POST['sort'])) {
-        $sort = $connection->albumSort($_SESSION['id']);
+        if ($_POST['order'] === 'default') {
+            $allalbums = $connection->getAlbumFromID($_SESSION['id']);
+        } else {
+            $sort = $connection->albumSort($_SESSION['id'], $_POST['order']);
+            $allalbums = $sort;
+        }
+    } else {
+        $allalbums = $connection->getAlbumFromID($_SESSION['id']);
     }
-
-
 
     if(isset($_POST["accept"]) || isset($_POST["refuse"])){
         if(isset($_POST["accept"])){
@@ -42,7 +47,6 @@
         } else{
             $refuse = $connection->refuseShare($_POST["refuse"]);
         }
-        // header('Location: dashboard.php'); 
     }
 ?>
 <?php require 'require/head.php';?>
@@ -97,14 +101,18 @@
             <h3 class="text-lightgrey text-base lg:text-xl">Vos albums publiques sont visibles par tous.</h3>
             <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
                 <?php 
-                    $allalbums = $connection->getAlbumFromID($_SESSION['id']);
+                    if (isset($sort)) {
+                        $allalbums = $sort;
+                    } else {
+                        $allalbums = $connection->getAlbumFromID($_SESSION['id']);
+                    }
                     foreach ($allalbums as $album) {
                         if ($_SESSION['id']==$album['user_id']){ ?>
                             <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
                                 <span class="mt-2 text-gray-400"><?=$album['privacy']?></span>
                                 <span class="font-bold m-auto mt-4 text-white text-xl"> <?= $album['name']?></span>
                                 <a href="album.php?id=<?= $album['id']?>" class="text-white m-auto font-semibold ">Voir</a>
-                                <?php if ($album['name'] != 'Visionnés' && $album['name'] != 'Liste Envies ') { ?>
+                                <?php if ($album['name'] != 'Visionnés' && $album['name'] != 'Liste Envies') { ?>
                                     <form class="mr-0 ml-auto" method="POST" action="dashboard.php">
                                         <input type="hidden" name="delete_album" value="<?= $album["id"]; ?>">
                                         <input class=" text-center rounded w-4 h-4 mt-4" type="image" name="deleteAlbum" src="public/supprimer.png">
@@ -116,10 +124,17 @@
                     <?php } ?>
 
                     <form method="POST" action="dashboard.php">
-                        <input type="submit" value="Sort by name" name="sort">
+                        <label for="order">Trier par : </label>
+                        <select name="order" id="order">
+                            <option value="default">Default</option>
+                            <option value="ASC" data-column="name">A-Z</option>
+                            <option value="DESC" data-column="name">Z-A</option>
+                            <option value="ASC" data-column="created_at">Du + récent</option>
+                            <option value="DESC" data-column="created_at">Du + ancien</option>
+                        </select>
+                        <input type="hidden" name="column" id="column" value="name">
+                        <input type="submit" value="Trier" name="sort">
                     </form>
-            </div>
-
         </div>
 
         <div class="lg:ml-8 mt-16">
