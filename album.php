@@ -33,7 +33,7 @@
 
     require 'require/head.php';
 ?>
-<body>
+<body class="bg-violetwe">
     <header>
         <?php require_once 'require/nav.php'; ?>
     </header>
@@ -47,15 +47,12 @@
 
             $owner = $connection->GetSingleUser($album['user_id'])[0];
         ?>
-        <div class="flex flex-col gap-4">
-            <h2>Informations</h2>
+        <div class="lg:mx-24 bg-darkgrey p-8 mt-8 rounded-lg lg:w-auto w-10/12 m-auto">
             <div>
-                <h3>Nom de l'album</h3>
-                <p><?= $album['name'];?></p>
+                <p class="text-center text-white text-2xl lg:text-3xl font-bold"><?= $album['name'];?></p>
             </div>
             <div>
-                <h3>Créateur</h3>
-                <p><?= $owner["username"]?></p>
+                <p class="text-center text-lightgrey"><?= $owner["username"]?></p>
             </div>
             <div>
                 <h3>Visibilité</h3>
@@ -73,7 +70,7 @@
         <div id="divParentAlbum" class="flex flex-row gap-20">
             <?php
                 $allMovies = $connection->getMoviesFromAlbum($album['id']);
-                if($allMovies == null){
+                if(empty($allMovies)){
                     echo '<h1>Cet album est vide</h1>';
                 }
                 $array_movies_id = [];
@@ -93,7 +90,7 @@
         <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
         <script src="js/album.js"></script>
         <script>
-            showMoviesByIDs(<?php echo json_encode($array_movies_id);?>);
+            showMoviesByIDs(<?php echo json_encode($array_movies_id);?>, <?php if($owner["id"] == $_SESSION['id'] || $connection->isShared($_GET['id'], $_SESSION['id'])){ echo 'true';}else{echo 'false';};?>);
         </script>
     </main>
 </body>

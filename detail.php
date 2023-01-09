@@ -52,10 +52,7 @@
                     <?php } ?>
             </div>
         </div>
-        <div class="flex ml-16 mt-4 gap-4">
-            <a href="index.php" class="rounded-lg border border-black px-3 py-1">Revenir au menu</a>
-        </div>
-        
+
         <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
         <script type="module" src="js/takeDetails.js"></script>
     </main>

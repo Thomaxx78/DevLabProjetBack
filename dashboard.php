@@ -76,6 +76,9 @@
                     <div class="flex flex-col gap-4 mt-8">
                         <?php
                             $allnotifications = $connection->getNotificationFromID($_SESSION['id']);
+                            if (empty($allnotifications)) {
+                                echo "Vous n'avez pas de notifications";
+                            }
                             foreach ($allnotifications as $notification) {
                                 // var_dump($notification["album"][0]["name"]);
                                 $userAlbum = $connection->GetSingleUser($notification['id_user']);
@@ -99,7 +102,8 @@
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums:</h2>
             <h3 class="text-lightgrey text-base lg:text-xl">Vos albums publiques sont visibles par tous.</h3>
-            <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
+
+            <div class="carousel" data-flickity='{ "groupCells": true }'>
                 <?php 
                     if (isset($sort)) {
                         $allalbums = $sort;
@@ -119,7 +123,6 @@
                                     </form>
                                 <?php } ?>
                             </div>
-                            <br>
                         <?php } ?>
                     <?php } ?>
 
@@ -136,19 +139,20 @@
                         <input type="submit" value="Trier" name="sort">
                     </form>
         </div>
-
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums likés:</h2>
             <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
                 <?php 
                 $allalbumslikes = $connection->getAlbumLikeFromID($_SESSION['id']);
+                if (empty($allalbumslikes)) {
+                    echo "Vous n'avez pas liké d'albums pour le moment";
+                }
                 foreach ($allalbumslikes as $albumlike) {
                     if ($_SESSION['id']==$albumlike['user_id']){ ?>
                         <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
                             <span class="font-bold m-auto mt-4 text-white text-xl"> <?= $albumlike['name']?></span>
                             <a href="album.php?id=<?= $albumlike['album_id']?>" class="text-white m-auto font-semibold ">Voir</a>
                         </div>
-                        <br>
                     <?php } ?>
                 <?php } ?>
             </div>
@@ -159,12 +163,14 @@
             <div class="flex lg:flex-row flex-col gap-8 mt-8 ml-4 lg:ml-0">
                 <?php 
                 $albumsShare = $connection->getSharedAlbums($_SESSION['id']);
+                if (empty($albumsShare)) {
+                    echo "Vous n'avez aucun albums pour le moment";
+                }
                 foreach ($albumsShare as $albumShare) {?>
                     <div class="flex flex-col px-4 pb-2 rounded-lg border border-white w-8/12 lg:w-2/12">
                         <span class="font-bold m-auto mt-4 text-white text-xl"><?= $albumShare['name']?></span>
                         <a href="album.php?id=<?= $albumShare['id']?>" class="text-white m-auto font-semibold ">Voir</a>
                     </div>
-                    <br>
                 <?php } ?>
             </div>
         </div>
