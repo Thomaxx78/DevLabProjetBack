@@ -100,8 +100,26 @@
             </div>
         </div>
         <div class="lg:ml-8 mt-16">
-            <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums:</h2>
-            <h3 class="text-lightgrey text-base lg:text-xl">Vos albums publiques sont visibles par tous.</h3>
+            <div class="flex flex-row items-center justify-between">
+                <div>
+                    <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums:</h2>
+                    <h3 class="text-lightgrey text-base lg:text-xl">Vos albums publiques sont visibles par tous.</h3>
+                </div>
+                <div>
+                    <form method="POST" action="dashboard.php">
+                            <label for="order">Trier par : </label>
+                            <select name="order" id="order">
+                                <option value="default">Default</option>
+                                <option value="ASC" data-column="name">A-Z</option>
+                                <option value="DESC" data-column="name">Z-A</option>
+                                <option value="ASC" data-column="created_at">Du + récent</option>
+                                <option value="DESC" data-column="created_at">Du + ancien</option>
+                            </select>
+                            <input type="hidden" name="column" id="column" value="name">
+                            <input type="submit" value="Trier" name="sort">
+                        </form>
+                </div>
+            </div>
 
             <div class="carousel" data-flickity='{ "groupCells": true }'>
                 <?php 
@@ -125,19 +143,6 @@
                             </div>
                         <?php } ?>
                     <?php } ?>
-
-                    <form method="POST" action="dashboard.php">
-                        <label for="order">Trier par : </label>
-                        <select name="order" id="order">
-                            <option value="default">Default</option>
-                            <option value="ASC" data-column="name">A-Z</option>
-                            <option value="DESC" data-column="name">Z-A</option>
-                            <option value="ASC" data-column="created_at">Du + récent</option>
-                            <option value="DESC" data-column="created_at">Du + ancien</option>
-                        </select>
-                        <input type="hidden" name="column" id="column" value="name">
-                        <input type="submit" value="Trier" name="sort">
-                    </form>
         </div>
         <div class="lg:ml-8 mt-16">
             <h2 class="text-white text-2xl lg:text-3xl font-bold">Mes Albums likés:</h2>
