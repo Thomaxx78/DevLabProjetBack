@@ -64,7 +64,7 @@
         </div>
         <?php $allnotifications = $connection->getNotificationFromID($_SESSION['id']);
         if (!empty($allnotifications)) { ?>
-        <button class="openbtn mt-0  mr-0 mb-auto bg-violetwe p-2 rounded-lg">
+        <button class="openbtn mt-0  mr-0 ml-auto mb-auto bg-violetwe p-2 rounded-lg">
             <img class="w-6 lg:w-10" src="public/notification.png" alt="">
         </button>
                 <div class="lemodal hidden left-0 right-0 mx-auto my-auto absolute w-8/12 lg:w-4/12 h-auto bg-white  rounded-lg p-4">

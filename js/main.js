@@ -36,16 +36,18 @@ axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff
         option.value =  genre.name;
         inputGetCategory.appendChild(option);
         // Récupérer l'id du genre de film sélectionné
-        inputGetCategory.addEventListener("change", function(){
-            axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
-                .then((response) => {
-                    let genres = response.data.genres;
-                    genres.forEach(genre => {
-                        if (genre.name == option.innerHTML) {
-                            moviesByCategory(genre.id)
-                        }
+        inputGetCategory.addEventListener("change", function(e){
+                axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
+                    .then((response) => {
+                        let genres = response.data.genres;
+                        genres.forEach(genre => {
+                            if (genre.name == e.target.value) {
+                                moviesByCategory(genre.id)
+                            } else{
+                                console.log("Genre not found");
+                            }
+                            })
                     })
-                })
             })
         })
     })
@@ -84,14 +86,14 @@ function showMovie(parent, film, movie){
     }
     film.innerHTML = 
     `
-        <img class="w-32" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
-        <span class="text-center mt-1">${title}</span>
-        <button class="detailsMovie text-darkgrey" value="${movie.id}">Voir les détails</button>
+        <img class="w-34 rounded-t-lg" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="Poster">
+        <span class="text-center text-base text-darkgrey font-bold mt-1 rounded-t-lg">${title}</span>
+        <button class="detailsMovie px-2 py-1 border border-darkgrey rounded-lg mt-2 " value="${movie.id}">Movie Details</button>
         <span class="hidden">${movie.vote_average}</span>
         <span class="hidden">${movie.popularity}</span>
     `
     parent.appendChild(film);
-    film.classList.add("flex", "flex-col", "items-center", "rounded", "shadow", "m-2", "p-2", "w-64", "bg-white", "text-black", "hover:bg-gray-200", "hover:text-gray-800", "transition", "duration-500", "ease-in-out", "transform", "hover:-translate-y-1", "hover:scale-110");
+    film.classList.add("flex", "flex-col", "items-center","shadow-lg","pb-2", "rounded-lg","bg-white", "w-56", "text-black", "hover:bg-gray-200", "hover:text-gray-800", "transition", "duration-500", "ease-in-out", "transform", "hover:-translate-y-1", "hover:scale-110");
     film.children[film.children.length-3].addEventListener('click', event => {
         window.location ="detail.php?id="+movie.id;
     })

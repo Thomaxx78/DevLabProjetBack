@@ -11,16 +11,16 @@
         <div class="">
             <h3 class="hidden lg:block text-white text-center font-semibold text-2xl my-4">Trier par:</h3>
             <div id="triMovies" class="flex gap-4 flex-row lg:flex-col lg:mx-12 text-lightgrey overflow-x-auto overflow-y-hidden whitespace-nowrap">
-                <span class="text-black cursor-pointer px-2 py-1 bg-zinc-500 rounded-lg ml-2 lg:m-0">Ne pas trier</span>
-                <span class="text-black cursor-pointer px-2 py-1 bg-zinc-500 rounded-lg ">Nom</span>
-                <span class="text-black cursor-pointer px-2 py-1 bg-zinc-500 rounded-lg ">Note décroissante</span>
-                <span class="text-black cursor-pointer px-2 py-1 bg-zinc-500 rounded-lg ">Note croissante</span>
-                <span class="text-black cursor-pointer px-2 py-1 bg-zinc-500 rounded-lg mr-2 lg:m-0">Avis imbd</span>
+                <span class="text-center border-2 border-black font-bold cursor-pointer px-2 py-1 bg-white  text-darkgrey rounded-lg ml-2 lg:m-0">Ne pas trier</span>
+                <span class="text-center border-2 border-black font-bold cursor-pointer px-2 py-1 bg-white  text-darkgrey rounded-lg ml-2 lg:m-0">Nom</span>
+                <span class="text-center border-2 border-black font-bold cursor-pointer px-2 py-1 bg-white  text-darkgrey rounded-lg ml-2 lg:m-0">Note décroissante</span>
+                <span class="text-center border-2 border-black font-bold cursor-pointer px-2 py-1 bg-white  text-darkgrey rounded-lg ml-2 lg:m-0">Note croissante</span>
+                <span class="text-center border-2 border-black font-bold cursor-pointer px-2 py-1 bg-white  text-darkgrey rounded-lg ml-2 lg:m-0">Avis imbd</span>
             </div>
         </div>
         <div class="flex flex-row lg:flex-col items-center justify-around my-4">
             <h3 class="text-2xl text-white">Catégorie:</h3>
-            <select class="lg:my-4" id="inputGetCategory">
+            <select class="lg:my-4 text-center  font-bold cursor-pointer px-2 py-1 bg-white  text-darkgrey rounded-lg ml-2 lg:m-0" id="inputGetCategory">
             </select>
         </div>
     </div>

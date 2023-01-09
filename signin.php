@@ -24,7 +24,7 @@
                 $user_id = $connection->pdo->lastInsertId();
 
                 $albumV = new Album("Visionnés", "public", $user_id);
-                $albumE = new Album("Liste Envies ", "public", $user_id);
+                $albumE = new Album("Liste Envies", "public", $user_id);
                 if ($albumV->verify() && $albumE->verify()) {
                     $query = "INSERT INTO album (name, privacy, user_id) VALUES (?, ?, ?)";
                     $stmt = $connection->pdo->prepare($query);
