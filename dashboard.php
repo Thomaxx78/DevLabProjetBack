@@ -41,7 +41,7 @@
 ?>
 <?php require 'require/head.php';?>
 
-<body class="bg-[#959acc] pb-8">
+<body class="bg-violetwe pb-8">
     <?php
         if (!isset($_SESSION['username'])) {
             header('Location: login.php');
@@ -51,14 +51,14 @@
     ?>
 
     <div class="lg:mx-24 bg-darkgrey p-8 mt-8 rounded-lg lg:w-auto w-10/12 m-auto">
-        <div class="flex">
-        <div class="flex mt-8 items-center ">
+        <div class="flex justify-center lg:justify-start">
+        <div class="flex flex-col lg:flex-row mt-8 items-center ">
             <img class="lg:w-64 lg:h-64 w-32 h-32 lg:ml-8 object-cover rounded-full shadow-lg" src="images/avatars/<?php echo $_SESSION['logo'];?>" alt="">
             <div class="flex flex-row justify-between">
                 <div class="ml-4 text-white">
                     <h1 class="hidden lg:block text-xl font-semibold ml-1">Profil</h1>
                     <h1 class="lg:text-7xl text-3xl font-bold"> <?php echo $_SESSION['username'];?></h1>
-                    <p class="hidden lg:block lg:ml-1 mt-4 w-full lg:w-10/12"><?php echo $_SESSION['description'];?></p>
+                    <p class="text-center lg:text-left lg:block lg:ml-1 mt-4 w-full lg:w-10/12"><?php echo $_SESSION['description'];?></p>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
                                 $userAlbum = $connection->GetSingleUser($notification['id_user']);
                                 ?>
                                 <div class="mt-8 w-10/12 mx-auto text-center">
-                                    <span class="text-lg text-center "><?= $userAlbum[0]["username"];?> vous invite à partager un album:   "<?= $notification["album"][0]["name"];?>"</span>
+                                    <span class="text-lg text-center "> Un utilisateur souhaite vous inviter à partager un album:   "<?= $notification["album"][0]["name"];?>"</span>
                                     <div class="flex flex-row gap-8 mt-8 justify-center">
                                         <form method="POST">
                                             <input type="hidden" name="accept" value="<?= $notification["id"]; ?>">
@@ -215,7 +215,7 @@
             <form method="POST" class="mt-8 flex flex-col py-4 px-4 pb-4 rounded-lg border border-white lg:w-4/12">
                 <div class="">
                     <label for="name" class="text-white text-xl font-semi-bold mr-2">Nom:</label>
-                    <input class="w-6/12 bg-darkgrey border-b text-white border-white"type="text" name="name" id="name" placeholder="Ex: Mes favs">
+                    <input class="w-6/12 bg-darkgrey text-white border-b border-white"type="text" name="name" id="name" placeholder="Ex: Mes favs">
                 </div>
                 <div class="flex mt-4">
                     <label for="privacy" class="text-white text-xl mr-2">Confidentialité:</label>

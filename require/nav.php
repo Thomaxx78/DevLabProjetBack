@@ -35,6 +35,16 @@
 			</div>
 			<div>
 				<ul>
+					<?php 
+						if (isset($_SESSION['username'])) { ?>
+							<li class="mb-1 flex flex-row gap-2 justify-center items-center mb-2 p-2">
+								<img class="w-14 h-14 object-cover rounded-full shadow-lg" src="images/avatars/<?php echo $_SESSION['logo'];?>" alt="">
+								<a href="dashboard.php" class="block p-4 text-2xl font-bold text-white"><?php echo $_SESSION['username'];?></a>
+							</li>
+						<li> <a href="users.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white">Utilisateurs</a></li>
+						<li> <a href="logout.php" class="hidden lg:block text-xl text-white mr-8 ml-auto border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white">Déconnection</a></li>
+						<li> <a href="dashboard.php" class="hidden lg:block"><img class="lg:w-14 lg:h-14 object-cover rounded-full shadow-lg" src="images/avatars/<?php echo $_SESSION['logo'];?>" alt=""></a></li>
+					<?php } ?>
 					<li class="mb-1">
 						<a href="index.php" class="block p-4 text-2xl font-bold text-white">Accueil</a>
 					</li>
@@ -43,14 +53,24 @@
 					</li>
 				</ul>
 			</div>
-			<div class="mt-auto flex items-center mb-12">li>
-				<li class="mb-1">
-					<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="login.php">Connexion</a>
-				</li>
-				<li class="mb-1">
-					<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="signin.php">Inscription</a>
-				</li>
-			</div>
+			<?php if(isset($_SESSION['username'])) {?> 
+				<div class="mt-auto flex items-center mb-12 justify-around">
+					<li class="mb-1 list-none">
+						<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="logout.php">Déconnection</a>
+					</li>
+				</div>
+				<?php }
+				else{ ?>
+				<div class="mt-auto flex items-center mb-12 justify-around">
+					<li class="mb-1 list-none">
+						<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="login.php">Connexion</a>
+					</li>
+					<li class="mb-1 list-none">
+						<a class="text-xl text-white  border-2 rounded-lg border-white px-4 py-1 hover:text-black hover:bg-white" href="signin.php">Inscription</a>
+					</li>
+				</div>
+				<?php } ?>
+
             <script src="js/burger.js"></script>
 		</nav>
 	</div>

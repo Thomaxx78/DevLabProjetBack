@@ -6,7 +6,7 @@ class Connection
 
     public function __construct()
     {
-        $this->pdo = new PDO('mysql:dbname=backend-project; host=127.0.0.1', 'root', 'root');
+        $this->pdo = new PDO('mysql:dbname=backend-project; host=127.0.0.1', 'root', 'root', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
         // $this->pdo = new PDO('mysql:dbname=backend-project;host=127.0.0.1', 'root', '');
     }
 
@@ -263,7 +263,7 @@ class Connection
     }
 
     public function getSharedAlbums($user_id){
-        $query = 'SELECT * FROM album_share WHERE id_user = :user_id';
+        $query = 'SELECT * FROM album_share WHERE id_user = :user_id AND is_accepted = 1';
         $statement = $this->pdo->prepare($query);
         $statement->execute([
             'user_id' => $user_id,
@@ -359,6 +359,41 @@ class Connection
             'user_id' => $user_id,
         ]);
         return $statement->fetchAll();
+    }
+
+    public function getAllMoviesAlreadyWatched($user_id){
+        $query = 'SELECT * FROM album WHERE user_id = :user_id AND name = "Visionnés"';
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'user_id' => $user_id,
+        ]);
+
+        $data = $statement->fetchAll();
+        if($data){
+            $query = 'SELECT * FROM album_film WHERE album_id = :id';
+            $statement = $this->pdo->prepare($query);
+            $statement->execute([
+                'id' => $data[0]['id'],
+            ]);
+            $data = $statement->fetchAll();
+        } else {
+            return [];
+        }
+        if($data){
+            $allData = [];
+            foreach($data as $key => $value){
+                $query = 'SELECT * FROM film WHERE id = :id';
+                $statement = $this->pdo->prepare($query);
+                $statement->execute([
+                    'id' => $value['film_id'],
+                ]);
+                $data[$key]['film'] = $statement->fetchAll();
+                $allData[] = $data[$key]['film'][0]["film_id"];
+            };
+            return $allData;
+        } else {
+            return [];
+        }
     }
 }
 

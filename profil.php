@@ -22,13 +22,13 @@
         
         require_once 'require/nav.php';
     ?>
-    <div class="lg:mx-24 bg-darkgrey p-8 mt-8 rounded-lg lg:w-auto w-10/12 m-auto">
-    <div class="flex lg:mt-8 items-center">
+    <div class=" lg:mx-24 bg-darkgrey p-8 mt-8 rounded-lg lg:w-auto w-10/12 m-auto">
+    <div class="flex flex-col lg:flex-row lg:mt-8 items-center">
         <img class="lg:w-64 lg:h-64 w-32 h-32 lg:ml-8 object-cover rounded-full shadow-lg" src="images/avatars/<?php echo $user[0]['logo']?>" alt="">
-        <div class="ml-4 text-white">
+        <div class=" flex flex-col items-center lg:items-start lg:ml-4 text-white">
             <h1 class="hidden lg:block text-xl font-semibold ml-1">Profil</h1>
             <h1 class="lg:text-7xl text-3xl font-bold"><?= $user[0]['username']?></h1>
-            <p class="hidden lg:block lg:ml-1 mt-4 w-full lg:w-10/12"><?= $user[0]['description']?></p>
+            <p class="text-center lg:text-left lg:block lg:ml-1 mt-4 w-full lg:w-10/12"><?= htmlspecialchars_decode($user[0]['description'])?></p>
         </div>
     </div>
     
@@ -48,7 +48,7 @@
                     <?php foreach ($albums as $album):
                         if($album['privacy'] == "public"):?>
                         <div class="flex flex-col rounded-lg border border-white w-8/12 lg:w-2/12 pb-4">
-                            <p class="font-bold m-auto mt-4 text-white text-xl"><?=$album['name']?></p>
+                            <p class="text-center font-bold m-auto mt-4 text-white text-xl"><?=$album['name']?></p>
                             <a class="text-white m-auto font-semibold" href="album.php?id=<?=($album['id'])?>">Voir</a>
                         </div>
                     <?php  endif; endforeach; ?>
