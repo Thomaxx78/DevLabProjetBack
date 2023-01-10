@@ -43,6 +43,12 @@ https://flickity.metafizzy.co
 
 /* ---- flickity-button ---- */
 
+@media screen and (max-width: 1024px) {
+  .flickity-prev-next-button {
+    display: hidden;
+  }
+}
+
 .flickity-button {
   position: absolute;
   background: hsla(0, 0%, 100%, 0.75);

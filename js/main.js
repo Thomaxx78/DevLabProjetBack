@@ -36,12 +36,12 @@ axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff
         option.value =  genre.name;
         inputGetCategory.appendChild(option);
         // Récupérer l'id du genre de film sélectionné
-        inputGetCategory.addEventListener("change", function(){
+        inputGetCategory.addEventListener("change", function(e){
                 axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e5be04ec7de9aff432b14905a60c0bb8')
                     .then((response) => {
                         let genres = response.data.genres;
                         genres.forEach(genre => {
-                            if (genre.name == option.innerHTML) {
+                            if (genre.name == e.target.value) {
                                 moviesByCategory(genre.id)
                             } else{
                                 console.log("Genre not found");
@@ -179,3 +179,8 @@ search.addEventListener('keyup', function(){
     }
 })
 
+// Cacher les films déjà visionnés
+function a(allMoviesWatched){
+    console.log("ok")
+
+}
