@@ -41,7 +41,7 @@
 ?>
 <?php require 'require/head.php';?>
 
-<body class="bg-violetwe pb-8">
+<body class="bg-[#959acc] pb-8">
     <?php
         if (!isset($_SESSION['username'])) {
             header('Location: login.php');
@@ -134,12 +134,10 @@
                                     <span class="text-center font-bold text-white text-3xl"> <?= $album['name']?></span>
                                     <a href="album.php?id=<?= $album['id']?>" class="text-white text-center font-semibold">Voir</a>
                                 </div>
-                                <?php if ($album['name'] != 'Visionnés' && $album['name'] != 'Liste Envies') { ?>
-                                    <form class="mr-4 ml-auto mb-4" method="POST" action="dashboard.php">
-                                        <input type="hidden" name="delete_album" value="<?= $album["id"]; ?>">
-                                        <button class=" rounded w-6 h-6 " type="submit" name="deleteAlbum"><img src="public/supprimer.png" alt=""></button>
-                                    </form>
-                                <?php } ?>
+                                <form class="mr-4 ml-auto mb-4" method="POST" action="dashboard.php">
+                                    <input type="hidden" name="delete_album" value="<?= $album["id"]; ?>">
+                                    <button class=" rounded w-6 h-6 " type="submit" name="deleteAlbum"><img src="public/supprimer.png" alt=""></button>
+                                </form>
                             </div>
                         <?php } ?>
                     <?php } ?>
@@ -217,7 +215,7 @@
             <form method="POST" class="mt-8 flex flex-col py-4 px-4 pb-4 rounded-lg border border-white lg:w-4/12">
                 <div class="">
                     <label for="name" class="text-white text-xl font-semi-bold mr-2">Nom:</label>
-                    <input class="w-6/12 bg-darkgrey border-b border-white"type="text" name="name" id="name" placeholder="Ex: Mes favs">
+                    <input class="w-6/12 bg-darkgrey border-b text-white border-white"type="text" name="name" id="name" placeholder="Ex: Mes favs">
                 </div>
                 <div class="flex mt-4">
                     <label for="privacy" class="text-white text-xl mr-2">Confidentialité:</label>

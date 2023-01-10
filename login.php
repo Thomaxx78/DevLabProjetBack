@@ -54,7 +54,7 @@ if($_POST){
             <button class="" type="submit" name="login">Connexion</button>
         </div>
         </form>    
-        <p class="text-center mt-4">Pas encore de compte ?<a href="login.php" class="text-violetwe text-center"> Inscrivez-vous.</a></p>
+        <p class="text-center mt-4">Pas encore de compte ?<a href="signin.php" class="text-violetwe text-center"> Inscrivez-vous.</a></p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>
